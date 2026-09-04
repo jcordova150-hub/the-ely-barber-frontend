@@ -58,8 +58,8 @@ const styles = {
     padding: "1rem 0",
     position: "sticky",
     top: 0,
-    background: "rgba(10, 13, 26, 0.9)",
-    backdropFilter: "blur(6px)",
+    background: "rgba(13, 13, 13, 0.85)",
+    backdropFilter: "blur(8px)",
     zIndex: 10,
   },
   inner: {

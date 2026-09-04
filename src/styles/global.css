@@ -1,14 +1,16 @@
 :root {
-  --navy-deep: #0a0d1a;
-  --navy-panel: #12162a;
-  --navy-line: #262c47;
-  --gold: #c9a24b;
-  --gold-bright: #e8c874;
-  --cream: #f1efe9;
-  --muted: #8891ab;
-  --danger: #c9614b;
+  --navy-deep: #0d0d0d;
+  --navy-panel: #171717;
+  --navy-line: #262626;
+  --gold: #d9a520;
+  --gold-bright: #e6c34d;
+  --gold-soft: rgba(217, 165, 32, 0.1);
+  --cream: #fafafa;
+  --muted: #a6a6a6;
+  --danger: #e5533d;
+  --whatsapp: #25d366;
   --font-display: "Playfair Display", Georgia, serif;
-  --font-body: "Inter", -apple-system, sans-serif;
+  --font-body: "Plus Jakarta Sans", -apple-system, sans-serif;
 }
 
 * {
@@ -26,9 +28,14 @@ body {
 }
 
 body {
-  background-image: radial-gradient(circle at 50% 0%, #141a30 0%, var(--navy-deep) 55%);
-  background-attachment: fixed;
   min-height: 100vh;
+}
+
+.gold-gradient-text {
+  background: linear-gradient(90deg, #bf953f, #fcf6ba, #b38728);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 a {
@@ -65,15 +72,15 @@ p {
 
 .btn {
   font-family: var(--font-body);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.95rem;
-  padding: 0.75rem 1.5rem;
+  padding: 0.85rem 1.75rem;
   border: 1px solid var(--gold);
   background: transparent;
   color: var(--gold-bright);
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease;
-  border-radius: 2px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.15s ease, color 0.15s ease;
+  border-radius: 0.75rem;
 }
 
 .btn:hover {
@@ -84,10 +91,23 @@ p {
 .btn-solid {
   background: var(--gold);
   color: var(--navy-deep);
+  box-shadow: 0 0 20px rgba(217, 165, 32, 0.3);
 }
 
 .btn-solid:hover {
   background: var(--gold-bright);
+  box-shadow: 0 0 30px rgba(217, 165, 32, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-whatsapp {
+  background: rgba(37, 211, 102, 0.1);
+  border: 1px solid rgba(37, 211, 102, 0.3);
+  color: var(--cream);
+}
+
+.btn-whatsapp:hover {
+  background: rgba(37, 211, 102, 0.2);
 }
 
 .btn-ghost {
@@ -119,6 +139,7 @@ p {
   background: var(--navy-panel);
   border: 1px solid var(--navy-line);
   padding: 1.75rem;
+  border-radius: 1rem;
 }
 
 input,
@@ -130,7 +151,7 @@ select {
   color: var(--cream);
   font-family: var(--font-body);
   font-size: 0.95rem;
-  border-radius: 2px;
+  border-radius: 0.6rem;
 }
 
 input:focus,

@@ -17,8 +17,8 @@ export default function Footer() {
 
         <div>
           <h4 style={styles.heading}>Horarios</h4>
-          <p style={styles.line}>Martes – Domingo: 11:00 AM – 8:00 PM</p>
-          <p style={{ ...styles.line, color: "var(--gold)" }}>Lunes: Descanso</p>
+          <p style={styles.line}>Lunes – Sábado: 11:00 AM – 8:00 PM</p>
+          <p style={{ ...styles.line, color: "var(--gold)" }}>Domingo: 11:00 AM – 4:00 PM</p>
           <div style={{ display: "flex", gap: "0.75rem", marginTop: "0.75rem" }}>
             <a href="#" aria-label="Instagram" style={styles.socialIcon}>IG</a>
             <a href="#" aria-label="Facebook" style={styles.socialIcon}>FB</a>

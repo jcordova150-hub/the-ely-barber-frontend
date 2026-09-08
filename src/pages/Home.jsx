@@ -187,7 +187,7 @@ const styles = {
     textTransform: "uppercase",
     marginBottom: "1.75rem",
   },
-  heroTitle: { fontSize: "clamp(2.75rem, 7vw, 5.75rem)", lineHeight: 1.08, marginBottom: "1.75rem" },
+  heroTitle: { fontSize: "clamp(3.25rem, 8vw, 6.5rem)", lineHeight: 1.05, marginBottom: "1.75rem" },
   heroSub: { fontSize: "1.2rem", maxWidth: 520, marginBottom: "2.25rem" },
   heroButtons: { display: "flex", gap: "1.1rem", flexWrap: "wrap" },
   eyebrow: {

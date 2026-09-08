@@ -67,7 +67,7 @@ p {
 }
 
 .container {
-  max-width: 960px;
+  max-width: 1120px;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
@@ -81,8 +81,8 @@ p {
 .btn {
   font-family: var(--font-body);
   font-weight: 700;
-  font-size: 0.95rem;
-  padding: 0.85rem 1.75rem;
+  font-size: 1rem;
+  padding: 1rem 2rem;
   border: 1px solid var(--gold);
   background: transparent;
   color: var(--gold-bright);

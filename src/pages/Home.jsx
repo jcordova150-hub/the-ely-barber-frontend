@@ -53,11 +53,12 @@ export default function Home() {
           </div>
           <div style={styles.serviceGrid}>
             {services.map((s) => (
-              <div key={s._id} style={styles.serviceCard}>
-                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.75rem" }}>
+              <div key={s._id} className="service-card" style={styles.serviceCard}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem" }}>
                   <h4 style={{ fontFamily: "var(--font-display)", fontSize: "1.15rem" }}>{s.name}</h4>
                   <span style={{ color: "var(--gold)", fontWeight: 700 }}>${s.price.toFixed(2)}</span>
                 </div>
+                {s.description && <p style={{ fontSize: "0.85rem", marginBottom: "0.5rem" }}>{s.description}</p>}
                 <div style={styles.durationRow}>⏱ {s.durationMinutes} minutos</div>
               </div>
             ))}
@@ -87,7 +88,12 @@ export default function Home() {
                 <h4 style={{ fontFamily: "var(--font-display)", fontSize: "1.3rem", marginBottom: "0.25rem" }}>
                   {b.name}
                 </h4>
-                <p style={{ color: "var(--gold)", fontSize: "0.85rem" }}>Master Barber</p>
+                {b.specialties?.length > 0 && (
+                  <p style={{ color: "var(--gold)", fontSize: "0.85rem", marginBottom: "0.4rem" }}>
+                    {b.specialties.join(" • ")}
+                  </p>
+                )}
+                {b.bio && <p style={{ fontSize: "0.85rem" }}>{b.bio}</p>}
               </div>
             ))}
             {barbers.length === 0 && <p>Aún no hay barberos registrados.</p>}
@@ -97,18 +103,47 @@ export default function Home() {
 
       {/* UBICACIÓN */}
       <section style={{ padding: "5rem 0", background: "var(--navy-panel)", borderTop: "1px solid var(--navy-line)" }}>
-        <div className="container">
-          <div style={styles.eyebrow}>Visítanos</div>
-          <h2 style={{ fontSize: "2.2rem", marginBottom: "1rem" }}>Ubicación</h2>
-          <p style={{ maxWidth: 480, marginBottom: "2rem" }}>
-            Estamos ubicados en el corazón de Cancún. Ven y disfruta de una bebida de cortesía
-            mientras te atendemos.
-          </p>
-          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-            <div>
-              <div style={{ color: "var(--cream)", fontWeight: 600 }}>Ubicación</div>
-              <div>Cancún, Quintana Roo, México</div>
+        <div className="container" style={styles.locationGrid}>
+          <div>
+            <div style={styles.eyebrow}>Visítanos</div>
+            <h2 style={{ fontSize: "2.2rem", marginBottom: "1rem" }}>Ubicación</h2>
+            <p style={{ maxWidth: 420, marginBottom: "2rem" }}>
+              Estamos ubicados en el corazón de Cancún. Ven y disfruta de una bebida de cortesía
+              mientras te atendemos.
+            </p>
+            <div style={{ display: "flex", gap: "1rem", marginBottom: "1.5rem" }}>
+              <div style={styles.iconCircleSmall}>📍</div>
+              <div>
+                <div style={{ color: "var(--cream)", fontWeight: 600 }}>Dirección</div>
+                <div>Cancún, Quintana Roo, México</div>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=The+Block+Barber+Cancun"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ color: "var(--gold)", fontSize: "0.9rem", fontWeight: 600 }}
+                >
+                  Abrir en Google Maps →
+                </a>
+              </div>
             </div>
+            <div style={{ display: "flex", gap: "1rem" }}>
+              <div style={styles.iconCircleSmall}>📞</div>
+              <div>
+                <div style={{ color: "var(--cream)", fontWeight: 600 }}>Teléfono</div>
+                <div>56 6036 2095</div>
+              </div>
+            </div>
+          </div>
+          <div style={styles.mapWrap}>
+            <iframe
+              title="Ubicación The Block Barber"
+              src="https://www.google.com/maps?q=The+Block+Barber+Cancun&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
         </div>
       </section>
@@ -202,5 +237,28 @@ const styles = {
     fontSize: "3rem",
     color: "var(--gold)",
     marginBottom: "1rem",
+  },
+  locationGrid: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: "3rem",
+    alignItems: "center",
+  },
+  iconCircleSmall: {
+    width: 44,
+    height: 44,
+    borderRadius: "50%",
+    background: "var(--gold-soft)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "1.1rem",
+    flexShrink: 0,
+  },
+  mapWrap: {
+    height: 320,
+    borderRadius: "1rem",
+    overflow: "hidden",
+    border: "1px solid var(--navy-line)",
   },
 };

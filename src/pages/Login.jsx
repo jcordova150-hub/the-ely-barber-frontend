@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { api } from "../api";
 import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
@@ -16,9 +16,9 @@ export default function Login() {
     setError("");
     setLoading(true);
     try {
-      const user = await api.login({ email, password });
+      const user = await api.adminLogin(password);
       login(user);
-      navigate(user.role === "admin" ? "/admin" : "/mis-citas");
+      navigate("/admin");
     } catch (err) {
       setError(err.message);
     } finally {
@@ -27,25 +27,58 @@ export default function Login() {
   };
 
   return (
-    <div className="container" style={{ maxWidth: 400, padding: "4rem 1.5rem" }}>
-      <h1 style={{ marginBottom: "1.75rem" }}>Entrar</h1>
-      <form onSubmit={handleSubmit} className="panel">
-        <div className="field">
-          <label htmlFor="email">Correo</label>
-          <input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
-        </div>
-        <div className="field">
+    <div className="container" style={{ maxWidth: 380, padding: "6rem 1.5rem" }}>
+      <form onSubmit={handleSubmit} className="panel" style={{ textAlign: "center", borderTop: "2px solid var(--gold)" }}>
+        <div style={styles.iconCircle}>🔒</div>
+        <h1 style={{ fontSize: "1.4rem", marginBottom: "0.25rem" }}>Panel Admin</h1>
+        <p style={{ marginBottom: "1.5rem" }}>The Block Barber</p>
+        <div className="field" style={{ textAlign: "left", position: "relative" }}>
           <label htmlFor="password">Contraseña</label>
-          <input id="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input
+            id="password"
+            type={showPassword ? "text" : "password"}
+            required
+            placeholder="Ingresa la contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword((v) => !v)}
+            style={styles.eyeBtn}
+            aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+          >
+            {showPassword ? "🙈" : "👁"}
+          </button>
         </div>
         {error && <p className="error-text">{error}</p>}
         <button type="submit" className="btn btn-solid" disabled={loading} style={{ width: "100%" }}>
           {loading ? "Entrando..." : "Entrar"}
         </button>
       </form>
-      <p style={{ marginTop: "1.25rem" }}>
-        ¿No tienes cuenta? <Link to="/registro">Regístrate</Link>
-      </p>
     </div>
   );
 }
+
+const styles = {
+  iconCircle: {
+    width: 56,
+    height: 56,
+    borderRadius: "50%",
+    background: "var(--gold-soft)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "1.5rem",
+    margin: "0 auto 1rem",
+  },
+  eyeBtn: {
+    position: "absolute",
+    right: "0.75rem",
+    top: "2.1rem",
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    fontSize: "1rem",
+  },
+};

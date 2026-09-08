@@ -1,51 +1,44 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
     logout();
     navigate("/");
   };
 
+  const isActive = (path) => location.pathname === path;
+
   return (
     <header style={styles.header}>
       <div className="container" style={styles.inner}>
         <Link to="/" style={styles.brand}>
           <img src="/logo.png" alt="The Block Barber" style={styles.logo} />
-          <div>
-            <div style={styles.brandName}>The Block Barber</div>
-            <div style={styles.tagline}>Estilo · Precisión · Tradición</div>
+          <div style={styles.brandName}>
+            THE BLOCK<br />BARBER
           </div>
         </Link>
 
         <nav style={styles.nav}>
+          <Link to="/" style={{ ...styles.link, ...(isActive("/") ? styles.linkActive : {}) }}>Inicio</Link>
+          <Link to="/reservar" style={{ ...styles.link, ...(isActive("/reservar") ? styles.linkActive : {}) }}>Reservar</Link>
+          {user?.role === "admin" ? (
+            <Link to="/admin" style={{ ...styles.link, ...(isActive("/admin") ? styles.linkActive : {}) }}>Admin</Link>
+          ) : (
+            <Link to="/login" style={{ ...styles.link, ...(isActive("/login") ? styles.linkActive : {}) }}>Admin</Link>
+          )}
           {user?.role === "admin" && (
-            <Link to="/admin" style={styles.link}>
-              Panel
-            </Link>
-          )}
-          {user && user.role !== "admin" && (
-            <Link to="/mis-citas" style={styles.link}>
-              Mis citas
-            </Link>
-          )}
-          {user ? (
-            <button className="btn btn-ghost" onClick={handleLogout}>
+            <button className="btn btn-ghost" onClick={handleLogout} style={{ padding: "0.4rem 0.9rem" }}>
               Salir
             </button>
-          ) : (
-            <>
-              <Link to="/login" style={styles.link}>
-                Entrar
-              </Link>
-              <Link to="/reservar" className="btn btn-solid">
-                Reservar cita
-              </Link>
-            </>
           )}
+          <Link to="/reservar" className="btn btn-solid">
+            Agendar Cita
+          </Link>
         </nav>
       </div>
     </header>
@@ -74,25 +67,32 @@ const styles = {
     alignItems: "center",
     gap: "0.75rem",
   },
-  logo: { width: 42, height: 42, objectFit: "contain" },
+  logo: {
+    width: 48,
+    height: 48,
+    objectFit: "contain",
+    borderRadius: "50%",
+    filter: "drop-shadow(0 0 8px rgba(217,165,32,0.5))",
+  },
   brandName: {
     fontFamily: "var(--font-display)",
-    color: "var(--cream)",
+    color: "var(--gold)",
     fontSize: "1.1rem",
     lineHeight: 1.2,
-  },
-  tagline: {
-    fontSize: "0.7rem",
-    color: "var(--gold)",
-    letterSpacing: "0.03em",
+    fontWeight: 700,
+    letterSpacing: "0.02em",
   },
   nav: {
     display: "flex",
     alignItems: "center",
-    gap: "1.25rem",
+    gap: "1.5rem",
   },
   link: {
     color: "var(--muted)",
     fontSize: "0.95rem",
+    fontWeight: 500,
+  },
+  linkActive: {
+    color: "var(--gold)",
   },
 };

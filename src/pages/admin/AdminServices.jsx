@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { api } from "../../api";
 
-const emptyForm = { name: "", price: "", type: "servicio", durationMinutes: 30 };
+const emptyForm = { name: "", description: "", price: "", type: "servicio", durationMinutes: 30 };
 
 export default function AdminServices() {
   const { user } = useAuth();
@@ -56,6 +56,10 @@ export default function AdminServices() {
             <input id="iname" required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
           </div>
           <div className="field">
+            <label htmlFor="idesc">Descripción (opcional)</label>
+            <input id="idesc" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+          </div>
+          <div className="field">
             <label htmlFor="itype">Tipo</label>
             <select id="itype" value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })}>
               <option value="servicio">Servicio (se agenda)</option>
@@ -87,6 +91,7 @@ export default function AdminServices() {
             <div key={i._id} className="panel" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1rem 1.25rem" }}>
               <div>
                 <div style={{ color: "var(--cream)" }}>{i.name}</div>
+                {i.description && <div style={{ color: "var(--muted)", fontSize: "0.8rem" }}>{i.description}</div>}
                 <div style={{ color: "var(--muted)", fontSize: "0.8rem", textTransform: "capitalize" }}>
                   {i.type}{i.type === "servicio" ? ` · ${i.durationMinutes} min` : ""}
                 </div>

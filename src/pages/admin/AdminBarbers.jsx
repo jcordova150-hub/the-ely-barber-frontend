@@ -3,7 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import { api } from "../../api";
 
 const DAYS = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"];
-const emptyForm = { name: "", phone: "", schedule: [] };
+const emptyForm = { name: "", phone: "", bio: "", specialties: "", schedule: [] };
 
 export default function AdminBarbers() {
   const { user } = useAuth();
@@ -33,7 +33,13 @@ export default function AdminBarbers() {
 
   const startEdit = (barber) => {
     setEditingId(barber._id);
-    setForm({ name: barber.name, phone: barber.phone || "", schedule: barber.schedule || [] });
+    setForm({
+      name: barber.name,
+      phone: barber.phone || "",
+      bio: barber.bio || "",
+      specialties: (barber.specialties || []).join(", "),
+      schedule: barber.schedule || [],
+    });
   };
 
   const resetForm = () => {
@@ -45,10 +51,14 @@ export default function AdminBarbers() {
     e.preventDefault();
     setError("");
     try {
+      const payload = {
+        ...form,
+        specialties: form.specialties.split(",").map((s) => s.trim()).filter(Boolean),
+      };
       if (editingId) {
-        await api.updateBarber(editingId, form, user.token);
+        await api.updateBarber(editingId, payload, user.token);
       } else {
-        await api.createBarber(form, user.token);
+        await api.createBarber(payload, user.token);
       }
       resetForm();
       load();
@@ -77,6 +87,14 @@ export default function AdminBarbers() {
           <div className="field">
             <label htmlFor="bphone">Teléfono</label>
             <input id="bphone" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
+          </div>
+          <div className="field">
+            <label htmlFor="bbio">Biografía corta</label>
+            <input id="bbio" value={form.bio} onChange={(e) => setForm({ ...form, bio: e.target.value })} />
+          </div>
+          <div className="field">
+            <label htmlFor="bspec">Especialidades (separadas por coma)</label>
+            <input id="bspec" placeholder="Fade, Cortes modernos, Diseño de líneas" value={form.specialties} onChange={(e) => setForm({ ...form, specialties: e.target.value })} />
           </div>
           <div className="field">
             <label>Días y horario de trabajo</label>

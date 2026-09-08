@@ -38,6 +38,14 @@ body {
   color: transparent;
 }
 
+.service-card {
+  transition: border-color 0.2s ease;
+}
+
+.service-card:hover {
+  border-color: var(--gold) !important;
+}
+
 a {
   color: var(--gold-bright);
   text-decoration: none;

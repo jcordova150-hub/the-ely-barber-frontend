@@ -1,20 +1,18 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Register from "./pages/Register";
 import Booking from "./pages/Booking";
-import MyAppointments from "./pages/MyAppointments";
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminBarbers from "./pages/admin/AdminBarbers";
 import AdminServices from "./pages/admin/AdminServices";
 import AdminAppointments from "./pages/admin/AdminAppointments";
 
-function RequireAuth({ children, adminOnly = false }) {
+function RequireAuth({ children }) {
   const { user } = useAuth();
-  if (!user) return <Navigate to="/login" replace />;
-  if (adminOnly && user.role !== "admin") return <Navigate to="/" replace />;
+  if (!user || user.role !== "admin") return <Navigate to="/login" replace />;
   return children;
 }
 
@@ -25,20 +23,11 @@ function AppRoutes() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/registro" element={<Register />} />
         <Route path="/reservar" element={<Booking />} />
-        <Route
-          path="/mis-citas"
-          element={
-            <RequireAuth>
-              <MyAppointments />
-            </RequireAuth>
-          }
-        />
         <Route
           path="/admin"
           element={
-            <RequireAuth adminOnly>
+            <RequireAuth>
               <AdminLayout />
             </RequireAuth>
           }
@@ -49,6 +38,7 @@ function AppRoutes() {
           <Route path="articulos" element={<AdminServices />} />
         </Route>
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

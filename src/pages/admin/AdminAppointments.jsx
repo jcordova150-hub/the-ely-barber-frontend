@@ -28,10 +28,13 @@ export default function AdminAppointments() {
         {appointments.map((a) => (
           <div key={a._id} className="panel" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.75rem" }}>
             <div>
-              <div style={{ color: "var(--cream)" }}>{a.client?.name} · {a.service?.name}</div>
-              <div style={{ color: "var(--muted)", fontSize: "0.85rem" }}>
-                {a.date} · {a.startTime} con {a.barber?.name} · {a.status}
+              <div style={{ color: "var(--cream)" }}>
+                {a.client?.name || a.guestName} · {a.services?.map((s) => s.name).join(" + ")}
               </div>
+              <div style={{ color: "var(--muted)", fontSize: "0.85rem" }}>
+                {a.date} · {a.startTime} con {a.barber?.name} · {a.client?.phone || a.guestPhone} · {a.status}
+              </div>
+              {a.notes && <div style={{ color: "var(--muted)", fontSize: "0.8rem" }}>Nota: {a.notes}</div>}
             </div>
             <div style={{ display: "flex", gap: "0.5rem" }}>
               <button className="btn" onClick={() => handleWhatsapp(a._id)}>Enviar recordatorio</button>

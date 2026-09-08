@@ -16,8 +16,7 @@ async function request(path, { method = "GET", body, token } = {}) {
 }
 
 export const api = {
-  register: (body) => request("/auth/register", { method: "POST", body }),
-  login: (body) => request("/auth/login", { method: "POST", body }),
+  adminLogin: (password) => request("/auth/admin-login", { method: "POST", body: { password } }),
 
   getServices: (type, token) =>
     request(`/services${type ? `?type=${type}` : ""}`, { token }),
@@ -30,10 +29,9 @@ export const api = {
   updateBarber: (id, body, token) => request(`/barbers/${id}`, { method: "PUT", body, token }),
   deleteBarber: (id, token) => request(`/barbers/${id}`, { method: "DELETE", token }),
 
-  getAvailability: (params) =>
-    request(`/appointments/availability?${new URLSearchParams(params)}`),
-  createAppointment: (body, token) => request("/appointments", { method: "POST", body, token }),
-  getMyAppointments: (token) => request("/appointments/mine", { token }),
+  getAvailability: (barberId, serviceIds, date) =>
+    request(`/appointments/availability?${new URLSearchParams({ barberId, date, serviceIds: serviceIds.join(",") })}`),
+  createAppointment: (body) => request("/appointments", { method: "POST", body }),
   getAllAppointments: (token) => request("/appointments", { token }),
   cancelAppointment: (id, token) => request(`/appointments/${id}/cancel`, { method: "PUT", token }),
   getWhatsappLink: (id, token) => request(`/appointments/${id}/whatsapp-link`, { token }),

@@ -84,7 +84,14 @@ export default function Home() {
           <div style={styles.barberGrid}>
             {barbers.map((b) => (
               <div key={b._id}>
-                <div style={styles.barberAvatar}>{b.name.charAt(0)}</div>
+                <div className="barber-photo-wrap" style={styles.barberAvatar}>
+                  <img
+                    className="barber-photo"
+                    src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&h=800&fit=crop"
+                    alt={b.name}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  />
+                </div>
                 <h4 style={{ fontFamily: "var(--font-display)", fontSize: "1.3rem", marginBottom: "0.25rem" }}>
                   {b.name}
                 </h4>
@@ -229,13 +236,6 @@ const styles = {
   barberAvatar: {
     aspectRatio: "3/4",
     borderRadius: "1rem",
-    background: "linear-gradient(135deg, var(--navy-panel), var(--navy-line))",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontFamily: "var(--font-display)",
-    fontSize: "3rem",
-    color: "var(--gold)",
     marginBottom: "1rem",
   },
   locationGrid: {

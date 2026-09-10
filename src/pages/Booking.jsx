@@ -20,7 +20,8 @@ export default function Booking() {
 
   const [selectedServices, setSelectedServices] = useState([]);
   const [barber, setBarber] = useState(null);
-  const [date, setDate] = useState("");
+  const minDate = new Date().toISOString().split("T")[0];
+  const [date, setDate] = useState(minDate);
   const [time, setTime] = useState("");
   const [guest, setGuest] = useState({ name: "", phone: "", email: "", notes: "" });
 
@@ -82,9 +83,10 @@ export default function Booking() {
     }
   };
 
-  const minDate = new Date().toISOString().split("T")[0];
-
   if (done) {
+    const waMessage = `Hola, quiero confirmar mi cita: ${selectedServices.map((s) => s.name).join(" + ")} con ${barber.name} el ${date} a las ${time}. Mi nombre es ${guest.name}.`;
+    const waLink = `https://wa.me/525660362095?text=${encodeURIComponent(waMessage)}`;
+
     return (
       <div className="container" style={{ maxWidth: 480, padding: "6rem 1.5rem", textAlign: "center" }}>
         <h1>¡Cita reservada!</h1>
@@ -92,7 +94,19 @@ export default function Booking() {
           {selectedServices.map((s) => s.name).join(" + ")} con {barber.name} el {date} a las {time}.
           El pago se realiza en el local.
         </p>
-        <button className="btn btn-solid" style={{ marginTop: "1rem" }} onClick={() => navigate("/")}>
+        <p style={{ marginTop: "0.5rem" }}>
+          Para confirmar tu lugar, mándanos un WhatsApp:
+        </p>
+        <a
+          href={waLink}
+          target="_blank"
+          rel="noreferrer"
+          className="btn btn-whatsapp"
+          style={{ display: "inline-block", marginTop: "1rem", marginRight: "0.75rem" }}
+        >
+          Confirmar por WhatsApp
+        </a>
+        <button className="btn btn-ghost" style={{ marginTop: "1rem" }} onClick={() => navigate("/")}>
           Volver al inicio
         </button>
       </div>

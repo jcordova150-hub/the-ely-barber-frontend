@@ -12,8 +12,13 @@ export default function AdminBarbers() {
   const [editingId, setEditingId] = useState(null);
   const [error, setError] = useState("");
 
-  const load = () => api.getBarbers().then(setBarbers);
+  const load = () => api.getAllBarbers(user.token).then(setBarbers);
   useEffect(load, []);
+
+  const setStatus = async (barber, status) => {
+    await api.updateBarber(barber._id, { status }, user.token);
+    load();
+  };
 
   const toggleDay = (day) => {
     const exists = form.schedule.find((s) => s.day === day);
@@ -74,7 +79,44 @@ export default function AdminBarbers() {
   };
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2rem" }}>
+    <div>
+      <h2 style={{ fontSize: "1.1rem", marginBottom: "1rem" }}>Disponibilidad de Barberos</h2>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginBottom: "2.5rem" }}>
+        {barbers.map((b) => (
+          <div key={b._id} className="panel" style={{ display: "flex", alignItems: "center", gap: "0.9rem", flex: "1 1 320px" }}>
+            <img
+              src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=100&h=100&fit=crop"
+              alt={b.name}
+              style={{ width: 44, height: 44, borderRadius: "50%", objectFit: "cover" }}
+            />
+            <div style={{ flex: 1 }}>
+              <div style={{ color: "var(--cream)", fontWeight: 600 }}>{b.name}</div>
+            </div>
+            <div style={{ display: "flex", gap: "0.4rem" }}>
+              <button
+                onClick={() => setStatus(b, "disponible")}
+                style={{ ...statusBtnStyle, ...(b.status === "disponible" ? statusActive.disponible : {}) }}
+              >
+                Disponible
+              </button>
+              <button
+                onClick={() => setStatus(b, "ausente")}
+                style={{ ...statusBtnStyle, ...(b.status === "ausente" ? statusActive.ausente : {}) }}
+              >
+                Ausente
+              </button>
+              <button
+                onClick={() => setStatus(b, "retirado")}
+                style={{ ...statusBtnStyle, ...(b.status === "retirado" ? statusActive.retirado : {}) }}
+              >
+                Retirado
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2rem" }}>
       <div>
         <h2 style={{ fontSize: "1.1rem", marginBottom: "1rem" }}>
           {editingId ? "Editar barbero" : "Agregar barbero"}
@@ -148,6 +190,24 @@ export default function AdminBarbers() {
           {barbers.length === 0 && <p>Aún no hay barberos registrados.</p>}
         </div>
       </div>
+      </div>
     </div>
   );
 }
+
+const statusBtnStyle = {
+  padding: "0.4rem 0.7rem",
+  fontSize: "0.75rem",
+  fontWeight: 600,
+  borderRadius: "999px",
+  border: "1px solid var(--navy-line)",
+  background: "var(--navy-deep)",
+  color: "var(--muted)",
+  cursor: "pointer",
+};
+
+const statusActive = {
+  disponible: { background: "rgba(34,197,94,0.15)", borderColor: "#22c55e", color: "#22c55e" },
+  ausente: { background: "rgba(217,165,32,0.15)", borderColor: "var(--gold)", color: "var(--gold-bright)" },
+  retirado: { background: "rgba(229,83,61,0.15)", borderColor: "var(--danger)", color: "var(--danger)" },
+};

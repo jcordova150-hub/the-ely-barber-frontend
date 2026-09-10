@@ -25,6 +25,7 @@ export const api = {
   deleteService: (id, token) => request(`/services/${id}`, { method: "DELETE", token }),
 
   getBarbers: (token) => request("/barbers", { token }),
+  getAllBarbers: (token) => request("/barbers/all", { token }),
   createBarber: (body, token) => request("/barbers", { method: "POST", body, token }),
   updateBarber: (id, body, token) => request(`/barbers/${id}`, { method: "PUT", body, token }),
   deleteBarber: (id, token) => request(`/barbers/${id}`, { method: "DELETE", token }),

@@ -84,11 +84,14 @@ export default function AdminBarbers() {
       <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginBottom: "2.5rem" }}>
         {barbers.map((b) => (
           <div key={b._id} className="panel" style={{ display: "flex", alignItems: "center", gap: "0.9rem", flex: "1 1 320px" }}>
-            <img
-              src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=100&h=100&fit=crop"
-              alt={b.name}
-              style={{ width: 44, height: 44, borderRadius: "50%", objectFit: "cover" }}
-            />
+            <div className="barber-photo-wrap" style={{ width: 64, height: 64, borderRadius: "50%", overflow: "hidden", flexShrink: 0 }}>
+              <img
+                className="barber-photo"
+                src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=200&h=200&fit=crop"
+                alt={b.name}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+            </div>
             <div style={{ flex: 1 }}>
               <div style={{ color: "var(--cream)", fontWeight: 600 }}>{b.name}</div>
             </div>

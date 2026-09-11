@@ -68,8 +68,8 @@ const styles = {
     gap: "0.75rem",
   },
   logo: {
-    width: 76,
-    height: 76,
+    width: 92,
+    height: 92,
     objectFit: "contain",
     borderRadius: "50%",
     filter: "drop-shadow(0 0 8px rgba(217,165,32,0.5))",
@@ -77,8 +77,8 @@ const styles = {
   brandName: {
     fontFamily: "var(--font-display)",
     color: "var(--gold)",
-    fontSize: "1.6rem",
-    lineHeight: 1.1,
+    fontSize: "1.9rem",
+    lineHeight: 1.05,
     fontWeight: 700,
     letterSpacing: "0.02em",
   },

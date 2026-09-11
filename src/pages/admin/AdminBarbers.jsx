@@ -13,7 +13,7 @@ export default function AdminBarbers() {
   const [error, setError] = useState("");
 
   const load = () => api.getAllBarbers(user.token).then(setBarbers);
-  useEffect(load, []);
+  useEffect(() => { load(); }, []);
 
   const setStatus = async (barber, status) => {
     await api.updateBarber(barber._id, { status }, user.token);

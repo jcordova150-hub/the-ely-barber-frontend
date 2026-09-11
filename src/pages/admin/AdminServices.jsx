@@ -11,7 +11,7 @@ export default function AdminServices() {
   const [error, setError] = useState("");
 
   const load = () => api.getServices(null, user.token).then(setItems);
-  useEffect(load, []);
+  useEffect(() => { load(); }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

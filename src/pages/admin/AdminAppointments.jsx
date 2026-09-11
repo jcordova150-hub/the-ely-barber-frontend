@@ -8,7 +8,7 @@ export default function AdminAppointments() {
   const [loading, setLoading] = useState(true);
 
   const load = () => api.getAllAppointments(user.token).then(setAppointments).finally(() => setLoading(false));
-  useEffect(load, []);
+  useEffect(() => { load(); }, []);
 
   const handleWhatsapp = async (id) => {
     const { link } = await api.getWhatsappLink(id, user.token);

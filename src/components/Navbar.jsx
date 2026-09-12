@@ -72,7 +72,7 @@ const styles = {
     height: 92,
     objectFit: "contain",
     borderRadius: "50%",
-    filter: "drop-shadow(0 0 8px rgba(217,165,32,0.5))",
+    filter: "drop-shadow(0 0 14px rgba(217,165,32,0.8)) drop-shadow(0 0 28px rgba(217,165,32,0.4))",
   },
   brandName: {
     fontFamily: "var(--font-display)",
@@ -80,7 +80,7 @@ const styles = {
     fontSize: "1.9rem",
     lineHeight: 1.05,
     fontWeight: 700,
-    letterSpacing: "0.02em",
+    letterSpacing: "0.14em",
   },
   nav: {
     display: "flex",

@@ -68,8 +68,8 @@ const styles = {
     gap: "0.75rem",
   },
   logo: {
-    width: 92,
-    height: 92,
+    width: 130,
+    height: 130,
     objectFit: "contain",
     borderRadius: "50%",
     filter: "drop-shadow(0 0 14px rgba(217,165,32,0.8)) drop-shadow(0 0 28px rgba(217,165,32,0.4))",

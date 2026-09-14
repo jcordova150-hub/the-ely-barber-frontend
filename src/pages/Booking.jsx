@@ -143,7 +143,7 @@ export default function Booking() {
                     style={{ ...styles.optionBtn, ...(selected ? styles.optionSelected : {}) }}
                   >
                     <div>
-                      <div style={{ fontWeight: 600 }}>{s.name}</div>
+                      <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.05rem" }}>{s.name}</div>
                       <div style={{ color: "var(--muted)", fontSize: "0.85rem" }}>{s.durationMinutes} min</div>
                     </div>
                     <span style={{ color: "var(--gold)", fontWeight: 700 }}>${s.price.toFixed(2)}</span>
@@ -173,7 +173,7 @@ export default function Booking() {
                   }}
                   style={{ ...styles.optionBtn, ...(barber?._id === b._id ? styles.optionSelected : {}) }}
                 >
-                  {b.name}
+                  <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.05rem" }}>{b.name}</span>
                 </button>
               ))}
             </div>

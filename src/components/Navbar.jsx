@@ -48,7 +48,7 @@ export default function Navbar() {
 const styles = {
   header: {
     borderBottom: "1px solid var(--navy-line)",
-    padding: "1.4rem 0",
+    padding: "0.5rem 0",
     position: "sticky",
     top: 0,
     background: "rgba(13, 13, 13, 0.85)",
@@ -68,8 +68,8 @@ const styles = {
     gap: "0.75rem",
   },
   logo: {
-    width: 130,
-    height: 130,
+    width: 260,
+    height: 260,
     objectFit: "contain",
     borderRadius: "50%",
     filter: "drop-shadow(0 0 14px rgba(217,165,32,0.8)) drop-shadow(0 0 28px rgba(217,165,32,0.4))",
@@ -77,7 +77,7 @@ const styles = {
   brandName: {
     fontFamily: "var(--font-display)",
     color: "var(--gold)",
-    fontSize: "1.9rem",
+    fontSize: "3.8rem",
     lineHeight: 1.05,
     fontWeight: 700,
     letterSpacing: "0.14em",
@@ -85,11 +85,11 @@ const styles = {
   nav: {
     display: "flex",
     alignItems: "center",
-    gap: "1.75rem",
+    gap: "1.5rem",
   },
   link: {
     color: "var(--muted)",
-    fontSize: "1.02rem",
+    fontSize: "0.95rem",
     fontWeight: 500,
   },
   linkActive: {

@@ -4,7 +4,7 @@ export default function Footer() {
       <div className="container" style={styles.grid}>
         <div style={styles.brandCol}>
           <img src="/logo.png" alt="The Block Barber" style={styles.logo} />
-          <div style={{ fontFamily: "var(--font-display)", fontSize: "1.3rem", color: "var(--gold)" }}>
+          <div style={{ fontFamily: "var(--font-display)", fontSize: "2.6rem", color: "var(--gold)", letterSpacing: "0.1em" }}>
             THE BLOCK BARBER
           </div>
         </div>
@@ -37,11 +37,12 @@ const styles = {
   },
   grid: {
     display: "grid",
-    gridTemplateColumns: "1.2fr 1fr 1fr",
+    gridTemplateColumns: "1.4fr 1fr 1fr",
     gap: "2rem",
+    alignItems: "center",
   },
   brandCol: { display: "flex", flexDirection: "column", gap: "0.75rem" },
-  logo: { width: 56, height: 56, objectFit: "contain" },
+  logo: { width: 112, height: 112, objectFit: "contain" },
   heading: { color: "var(--cream)", fontSize: "1rem", marginBottom: "0.75rem", fontFamily: "var(--font-display)" },
   line: { fontSize: "0.9rem", margin: "0 0 0.4rem 0" },
   socialIcon: {

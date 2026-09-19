@@ -9,6 +9,7 @@ const STEPS = [
   { key: "datos", label: "Datos", icon: "✅" },
 ];
 const MAX_SERVICES = 2;
+const BARBER_PHOTO = "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=200&h=200&fit=crop";
 
 export default function Booking() {
   const navigate = useNavigate();
@@ -163,7 +164,7 @@ export default function Booking() {
         {step === 1 && (
           <div>
             <h3 style={{ marginBottom: "1.25rem" }}>Elige tu Barbero</h3>
-            <div style={styles.optionList}>
+            <div style={styles.barberGrid}>
               {barbers.map((b) => (
                 <button
                   key={b._id}
@@ -171,8 +172,11 @@ export default function Booking() {
                     setBarber(b);
                     goNext();
                   }}
-                  style={{ ...styles.optionBtn, ...(barber?._id === b._id ? styles.optionSelected : {}) }}
+                  style={{ ...styles.barberBtn, ...(barber?._id === b._id ? styles.optionSelected : {}) }}
                 >
+                  <div className="barber-photo-wrap" style={styles.barberPhotoWrap}>
+                    <img className="barber-photo" src={BARBER_PHOTO} alt={b.name} style={styles.barberPhotoImg} />
+                  </div>
                   <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.05rem" }}>{b.name}</span>
                 </button>
               ))}
@@ -289,6 +293,31 @@ const styles = {
     padding: "1rem 1.25rem",
   },
   optionSelected: { borderColor: "var(--gold)", boxShadow: "0 0 0 1px var(--gold)" },
+  barberGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(130px, 1fr))",
+    gap: "1rem",
+  },
+  barberBtn: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: "0.75rem",
+    cursor: "pointer",
+    color: "var(--cream)",
+    fontFamily: "var(--font-body)",
+    background: "var(--navy-deep)",
+    border: "1px solid var(--navy-line)",
+    borderRadius: "0.75rem",
+    padding: "1rem",
+  },
+  barberPhotoWrap: {
+    width: "100%",
+    aspectRatio: "1/1",
+    borderRadius: "0.6rem",
+    overflow: "hidden",
+  },
+  barberPhotoImg: { width: "100%", height: "100%", objectFit: "cover" },
   slotGrid: {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fill, minmax(80px, 1fr))",

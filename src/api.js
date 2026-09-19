@@ -35,5 +35,8 @@ export const api = {
   createAppointment: (body) => request("/appointments", { method: "POST", body }),
   getAllAppointments: (token) => request("/appointments", { token }),
   cancelAppointment: (id, token) => request(`/appointments/${id}/cancel`, { method: "PUT", token }),
+  setAppointmentStatus: (id, status, token) => request(`/appointments/${id}/status`, { method: "PUT", body: { status }, token }),
+  rescheduleAppointment: (id, body, token) => request(`/appointments/${id}/reschedule`, { method: "PUT", body, token }),
+  deleteAppointment: (id, token) => request(`/appointments/${id}`, { method: "DELETE", token }),
   getWhatsappLink: (id, token) => request(`/appointments/${id}/whatsapp-link`, { token }),
 };

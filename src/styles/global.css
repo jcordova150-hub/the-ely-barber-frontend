@@ -222,3 +222,19 @@ select:focus-visible {
     animation: none !important;
   }
 }
+
+
+/* The Block Barber visual alignment */
+header a { transition: color .2s ease, opacity .2s ease; }
+header a:hover { color: var(--gold-bright) !important; }
+
+@media (max-width: 900px) {
+  .container { padding-left: 1.1rem; padding-right: 1.1rem; }
+}
+
+@media (max-width: 760px) {
+  header > .container { justify-content: center !important; }
+  header nav { justify-content: center; flex-wrap: wrap; gap: .75rem !important; }
+  header img { width: 130px !important; height: 130px !important; }
+  header div[style*="fontSize"] { font-size: 2.1rem !important; }
+}

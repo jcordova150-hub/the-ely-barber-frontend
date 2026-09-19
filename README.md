@@ -45,3 +45,7 @@ Esto carga automáticamente todos tus artículos actuales (cortes, combos, produ
 - `src/api.js` — todas las llamadas al backend en un solo lugar
 - `src/context/AuthContext.jsx` — maneja la sesión del usuario
 - `public/logo.png` — tu logo
+
+
+## Horario conservado
+El diseño se ajustó sin cambiar el horario configurado actualmente en el frontend: lunes a sábado de 11:00 AM a 8:00 PM y domingo de 11:00 AM a 4:00 PM.

@@ -16,9 +16,9 @@ export default function Navbar() {
   return (
     <header style={styles.header}>
       <div className="container" style={styles.inner}>
-        <Link to="/" style={styles.brand}>
-          <img src="/logo.png" alt="The Block Barber" style={styles.logo} />
-          <div style={styles.brandName}>
+        <Link to="/" className="navbar-brand">
+          <img src="/logo.png" alt="The Block Barber" className="navbar-logo" />
+          <div className="navbar-brand-name">
             THE BLOCK<br />BARBER
           </div>
         </Link>
@@ -48,11 +48,11 @@ export default function Navbar() {
 const styles = {
   header: {
     borderBottom: "1px solid var(--navy-line)",
-    padding: "0.25rem 0",
+    padding: "0.35rem 0",
     position: "sticky",
     top: 0,
-    background: "rgba(13, 13, 13, 0.85)",
-    backdropFilter: "blur(8px)",
+    background: "rgba(13, 13, 13, 0.94)",
+    backdropFilter: "blur(10px)",
     zIndex: 10,
   },
   inner: {
@@ -61,26 +61,6 @@ const styles = {
     justifyContent: "space-between",
     flexWrap: "wrap",
     gap: "1rem",
-  },
-  brand: {
-    display: "flex",
-    alignItems: "center",
-    gap: "0.75rem",
-  },
-  logo: {
-    width: 180,
-    height: 180,
-    objectFit: "contain",
-    borderRadius: "50%",
-    filter: "drop-shadow(0 0 14px rgba(217,165,32,0.8)) drop-shadow(0 0 28px rgba(217,165,32,0.4))",
-  },
-  brandName: {
-    fontFamily: "var(--font-display)",
-    color: "var(--gold)",
-    fontSize: "3.05rem",
-    lineHeight: 1.05,
-    fontWeight: 700,
-    letterSpacing: "0.14em",
   },
   nav: {
     display: "flex",

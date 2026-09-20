@@ -134,10 +134,25 @@ export default function Home() {
               </div>
             </div>
             <div style={{ display: "flex", gap: "1rem" }}>
-              <div style={styles.iconCircleSmall}>📞</div>
+              <div className="location-whatsapp-icon" style={styles.iconCircleSmall}>◉</div>
               <div>
-                <div style={{ color: "var(--cream)", fontWeight: 600 }}>Teléfono</div>
-                <div>56 6036 2095</div>
+                <div style={{ color: "var(--cream)", fontWeight: 600 }}>WhatsApp</div>
+                <a
+                  href="https://wa.me/5215660362095"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ color: "var(--cream)" }}
+                >56 6036 2095</a>
+                <div>
+                  <a
+                    href="https://wa.me/5215660362095"
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ color: "var(--gold)", fontSize: "0.9rem", fontWeight: 600 }}
+                  >
+                    Escríbenos por WhatsApp →
+                  </a>
+                </div>
               </div>
             </div>
           </div>

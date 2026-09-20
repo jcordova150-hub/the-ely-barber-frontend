@@ -4,6 +4,8 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import BarberLogin from "./pages/BarberLogin";
+import BarberAppointments from "./pages/BarberAppointments";
 import Booking from "./pages/Booking";
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminBarbers from "./pages/admin/AdminBarbers";
@@ -16,6 +18,12 @@ function RequireAuth({ children }) {
   return children;
 }
 
+function RequireBarber({ children }) {
+  const { user } = useAuth();
+  if (!user || user.role !== "barber") return <Navigate to="/barbero" replace />;
+  return children;
+}
+
 function AppRoutes() {
   return (
     <BrowserRouter>
@@ -23,6 +31,8 @@ function AppRoutes() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/barbero" element={<BarberLogin />} />
+        <Route path="/mis-citas" element={<RequireBarber><BarberAppointments /></RequireBarber>} />
         <Route path="/reservar" element={<Booking />} />
         <Route
           path="/admin"

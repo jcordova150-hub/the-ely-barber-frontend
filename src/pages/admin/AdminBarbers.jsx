@@ -11,6 +11,9 @@ export default function AdminBarbers() {
   const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState(null);
   const [error, setError] = useState("");
+  const [passwordFor, setPasswordFor] = useState(null);
+  const [newPassword, setNewPassword] = useState("");
+  const [message, setMessage] = useState("");
 
   const load = () => api.getAllBarbers(user.token).then(setBarbers);
   useEffect(() => { load(); }, []);
@@ -72,6 +75,20 @@ export default function AdminBarbers() {
     }
   };
 
+  const savePassword = async (barber) => {
+    setError("");
+    setMessage("");
+    try {
+      await api.setBarberPassword(barber._id, newPassword, user.token);
+      setMessage(`Acceso de ${barber.name} guardado. Usuario: ${barber.name.toLowerCase()}`);
+      setPasswordFor(null);
+      setNewPassword("");
+      load();
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   const handleDelete = async (id) => {
     if (!confirm("¿Eliminar este barbero?")) return;
     await api.deleteBarber(id, user.token);
@@ -103,21 +120,18 @@ export default function AdminBarbers() {
                 Disponible
               </button>
               <button
-                onClick={() => setStatus(b, "ausente")}
-                style={{ ...statusBtnStyle, ...(b.status === "ausente" ? statusActive.ausente : {}) }}
+                onClick={() => setStatus(b, "no_disponible")}
+                style={{ ...statusBtnStyle, ...(b.status === "no_disponible" ? statusActive.no_disponible : {}) }}
               >
-                Ausente
-              </button>
-              <button
-                onClick={() => setStatus(b, "retirado")}
-                style={{ ...statusBtnStyle, ...(b.status === "retirado" ? statusActive.retirado : {}) }}
-              >
-                Retirado
+                No disponible
               </button>
             </div>
           </div>
         ))}
       </div>
+
+      {message && <p style={{ color: "#22c55e", marginBottom: "1rem" }}>{message}</p>}
+      {error && !message && <p className="error-text" style={{ marginBottom: "1rem" }}>{error}</p>}
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2rem" }}>
       <div>
@@ -184,10 +198,19 @@ export default function AdminBarbers() {
                   {b.schedule?.length ? `${b.schedule.length} días activos` : "Sin horario configurado"}
                 </div>
               </div>
-              <div style={{ display: "flex", gap: "0.5rem" }}>
+              <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", justifyContent: "flex-end" }}>
                 <button className="btn btn-ghost" onClick={() => startEdit(b)}>Editar</button>
+                <button className="btn btn-ghost" onClick={() => { setPasswordFor(passwordFor === b._id ? null : b._id); setNewPassword(""); }}>
+                  {b.account?.hasAccount ? "Cambiar contraseña" : "Configurar acceso"}
+                </button>
                 <button className="btn btn-danger" onClick={() => handleDelete(b._id)}>Eliminar</button>
               </div>
+              {passwordFor === b._id && (
+                <div style={{ marginTop: ".75rem", width: "100%" }}>
+                  <input type="password" minLength={6} placeholder="Nueva contraseña (mín. 6 caracteres)" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+                  <button className="btn btn-solid" style={{ marginTop: ".5rem" }} disabled={newPassword.length < 6} onClick={() => savePassword(b)}>Guardar contraseña</button>
+                </div>
+              )}
             </div>
           ))}
           {barbers.length === 0 && <p>Aún no hay barberos registrados.</p>}
@@ -211,6 +234,5 @@ const statusBtnStyle = {
 
 const statusActive = {
   disponible: { background: "rgba(34,197,94,0.15)", borderColor: "#22c55e", color: "#22c55e" },
-  ausente: { background: "rgba(217,165,32,0.15)", borderColor: "var(--gold)", color: "var(--gold-bright)" },
-  retirado: { background: "rgba(229,83,61,0.15)", borderColor: "var(--danger)", color: "var(--danger)" },
+  no_disponible: { background: "rgba(229,83,61,0.15)", borderColor: "var(--danger)", color: "var(--danger)" },
 };

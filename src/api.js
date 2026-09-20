@@ -17,6 +17,7 @@ async function request(path, { method = "GET", body, token } = {}) {
 
 export const api = {
   adminLogin: (password) => request("/auth/admin-login", { method: "POST", body: { password } }),
+  barberLogin: (username, password) => request("/auth/barber-login", { method: "POST", body: { username, password } }),
 
   getServices: (type, token) =>
     request(`/services${type ? `?type=${type}` : ""}`, { token }),
@@ -39,4 +40,6 @@ export const api = {
   rescheduleAppointment: (id, body, token) => request(`/appointments/${id}/reschedule`, { method: "PUT", body, token }),
   deleteAppointment: (id, token) => request(`/appointments/${id}`, { method: "DELETE", token }),
   getWhatsappLink: (id, token) => request(`/appointments/${id}/whatsapp-link`, { token }),
+  setBarberPassword: (id, password, token) => request(`/barbers/${id}/account`, { method: "POST", body: { password }, token }),
+  getMyAppointments: (token) => request("/appointments/my", { token }),
 };

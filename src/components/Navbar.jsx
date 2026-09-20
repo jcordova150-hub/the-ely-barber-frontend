@@ -26,10 +26,15 @@ export default function Navbar() {
         <nav style={styles.nav}>
           <Link to="/" style={{ ...styles.link, ...(isActive("/") ? styles.linkActive : {}) }}>Inicio</Link>
           <Link to="/reservar" style={{ ...styles.link, ...(isActive("/reservar") ? styles.linkActive : {}) }}>Reservar</Link>
-          {user?.role === "admin" ? (
+          {user?.role === "barber" ? (
+            <Link to="/mis-citas" style={{ ...styles.link, ...(isActive("/mis-citas") ? styles.linkActive : {}) }}>Mis citas</Link>
+          ) : user?.role === "admin" ? (
             <Link to="/admin" style={{ ...styles.link, ...(isActive("/admin") ? styles.linkActive : {}) }}>Admin</Link>
           ) : (
             <Link to="/login" style={{ ...styles.link, ...(isActive("/login") ? styles.linkActive : {}) }}>Admin</Link>
+          )}
+          {user?.role === "barber" && (
+            <button className="btn btn-ghost" onClick={handleLogout} style={{ padding: "0.4rem 0.9rem" }}>Salir</button>
           )}
           {user?.role === "admin" && (
             <button className="btn btn-ghost" onClick={handleLogout} style={{ padding: "0.4rem 0.9rem" }}>

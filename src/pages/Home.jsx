@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../api";
+import { barberPhoto } from "../utils/barbers";
 
 export default function Home() {
   const [services, setServices] = useState([]);
@@ -18,13 +19,13 @@ export default function Home() {
         <img src="/hero-bg.png" alt="" style={styles.heroBg} aria-hidden="true" />
         <div style={styles.heroOverlay} />
         <div className="container" style={styles.heroContent}>
-          <div style={styles.badge}>★ Grooming Premium</div>
+          <div style={styles.badge}>Grooming Premium</div>
           <h1 style={styles.heroTitle}>
             ELEVA TU <br />
             <span className="gold-gradient-text" style={{ fontStyle: "italic" }}>ESTILO</span>
           </h1>
           <p style={styles.heroSub}>
-            No es solo un corte, es una experiencia. En The Block Barber combinamos la tradición
+            No es solo un corte, es una experiencia. En The Ely Barber combinamos la tradición
             con la vanguardia para darte el mejor aspecto.
           </p>
           <div style={styles.heroButtons}>
@@ -32,7 +33,7 @@ export default function Home() {
               Reservar Ahora →
             </Link>
             <a
-              href="https://wa.me/5215660362095"
+              href="https://wa.me/525660534952"
               target="_blank"
               rel="noreferrer"
               className="btn btn-whatsapp"
@@ -59,10 +60,10 @@ export default function Home() {
                   <span style={{ color: "var(--gold)", fontWeight: 700 }}>${s.price.toFixed(2)}</span>
                 </div>
                 {s.description && <p style={{ fontSize: "0.85rem", marginBottom: "0.5rem" }}>{s.description}</p>}
-                <div style={styles.durationRow}>⏱ {s.durationMinutes} minutos</div>
+                <div style={styles.durationRow}><span style={{fontWeight:'bold'}}>MIN</span> {s.durationMinutes} minutos</div>
               </div>
             ))}
-            {services.length === 0 && <p>Aún no hay servicios cargados.</p>}
+            {services.length === 0 && <p>Aï¿½n no hay servicios cargados.</p>}
           </div>
         </div>
       </section>
@@ -87,7 +88,7 @@ export default function Home() {
                 <div className="barber-photo-wrap" style={styles.barberAvatar}>
                   <img
                     className="barber-photo"
-                    src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=600&h=800&fit=crop"
+                    src={barberPhoto(b)}
                     alt={b.name}
                     style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   />
@@ -97,18 +98,18 @@ export default function Home() {
                 </h4>
                 {b.specialties?.length > 0 && (
                   <p style={{ color: "var(--gold)", fontSize: "0.85rem", marginBottom: "0.4rem" }}>
-                    {b.specialties.join(" • ")}
+                    {b.specialties.join(" ï¿½ ")}
                   </p>
                 )}
                 {b.bio && <p style={{ fontSize: "0.85rem" }}>{b.bio}</p>}
               </div>
             ))}
-            {barbers.length === 0 && <p>Aún no hay barberos registrados.</p>}
+            {barbers.length === 0 && <p>Aï¿½n no hay barberos registrados.</p>}
           </div>
         </div>
       </section>
 
-      {/* UBICACIÓN */}
+      {/* UBICACIï¿½N */}
       <section style={{ padding: "5rem 0", background: "var(--navy-panel)", borderTop: "1px solid var(--navy-line)" }}>
         <div className="container" style={styles.locationGrid}>
           <div>
@@ -119,12 +120,12 @@ export default function Home() {
               mientras te atendemos.
             </p>
             <div style={{ display: "flex", gap: "1rem", marginBottom: "1.5rem" }}>
-              <div style={styles.iconCircleSmall}>📍</div>
+              <div style={styles.iconCircleSmall}>MAP</div>
               <div>
                 <div style={{ color: "var(--cream)", fontWeight: 600 }}>Dirección</div>
                 <div>Cancún, Quintana Roo, México</div>
                 <a
-                  href="https://www.google.com/maps/search/?api=1&query=The+Block+Barber+Cancun"
+                  href="https://maps.app.goo.gl/esfKmrFpyt562YeV7"
                   target="_blank"
                   rel="noreferrer"
                   style={{ color: "var(--gold)", fontSize: "0.9rem", fontWeight: 600 }}
@@ -134,18 +135,18 @@ export default function Home() {
               </div>
             </div>
             <div style={{ display: "flex", gap: "1rem" }}>
-              <div className="location-whatsapp-icon" style={styles.iconCircleSmall}>◉</div>
+              <div className="location-whatsapp-icon" style={styles.iconCircleSmall}>WA</div>
               <div>
                 <div style={{ color: "var(--cream)", fontWeight: 600 }}>WhatsApp</div>
                 <a
-                  href="https://wa.me/5215660362095"
+                  href="https://wa.me/525660534952"
                   target="_blank"
                   rel="noreferrer"
                   style={{ color: "var(--cream)" }}
-                >56 6036 2095</a>
+                >56 6053 4952</a>
                 <div>
                   <a
-                    href="https://wa.me/5215660362095"
+                    href="https://wa.me/525660534952"
                     target="_blank"
                     rel="noreferrer"
                     style={{ color: "var(--gold)", fontSize: "0.9rem", fontWeight: 600 }}
@@ -158,8 +159,8 @@ export default function Home() {
           </div>
           <div style={styles.mapWrap}>
             <iframe
-              title="Ubicación The Block Barber"
-              src="https://www.google.com/maps?q=The+Block+Barber+Cancun&output=embed"
+              title="Ubicación The Ely Barber"
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14881.750677202033!2d-86.8662667!3d21.1747657!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f4c2d0042f4a2b3%3A0xc05d04142b8e2b5f!2sTHE%20ELY%20BARBER!5e0!3m2!1ses-419!2smx!4v1790222034085!5m2!1ses-419!2smx"
               width="100%"
               height="100%"
               style={{ border: 0 }}
@@ -277,3 +278,7 @@ const styles = {
     border: "1px solid var(--navy-line)",
   },
 };
+
+
+
+

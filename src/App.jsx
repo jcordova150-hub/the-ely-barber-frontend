@@ -11,6 +11,7 @@ import AdminLayout from "./pages/admin/AdminLayout";
 import AdminBarbers from "./pages/admin/AdminBarbers";
 import AdminServices from "./pages/admin/AdminServices";
 import AdminAppointments from "./pages/admin/AdminAppointments";
+import AdminClients from "./pages/admin/AdminClients";
 
 function RequireAuth({ children }) {
   const { user } = useAuth();
@@ -46,6 +47,7 @@ function AppRoutes() {
           <Route path="citas" element={<AdminAppointments />} />
           <Route path="barberos" element={<AdminBarbers />} />
           <Route path="articulos" element={<AdminServices />} />
+          <Route path="clientes" element={<AdminClients />} />
         </Route>
       </Routes>
       <Footer />

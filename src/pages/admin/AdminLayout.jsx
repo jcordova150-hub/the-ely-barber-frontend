@@ -4,10 +4,11 @@ export default function AdminLayout() {
   return (
     <div className="container" style={{ padding: "3rem 1.5rem" }}>
       <h1 style={{ marginBottom: "1.5rem" }}>Panel de administración</h1>
-      <div style={styles.tabs}>
+      <div className="admin-tabs" style={styles.tabs}>
         <NavLink to="/admin/citas" style={({ isActive }) => tabStyle(isActive)}>Citas</NavLink>
         <NavLink to="/admin/barberos" style={({ isActive }) => tabStyle(isActive)}>Barberos</NavLink>
         <NavLink to="/admin/articulos" style={({ isActive }) => tabStyle(isActive)}>Artículos y precios</NavLink>
+        <NavLink to="/admin/clientes" style={({ isActive }) => tabStyle(isActive)}>Clientes</NavLink>
       </div>
       <Outlet />
     </div>

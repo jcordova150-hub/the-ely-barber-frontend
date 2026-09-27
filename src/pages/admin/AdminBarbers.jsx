@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { api } from "../../api";
+import { barberPhoto } from "../../utils/barbers";
+import { resizeImageToDataUrl } from "../../utils/image";
 
 const DAYS = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"];
 const emptyForm = { name: "", phone: "", bio: "", specialties: "", schedule: [] };
@@ -21,6 +23,34 @@ export default function AdminBarbers() {
   const setStatus = async (barber, status) => {
     await api.updateBarber(barber._id, { status }, user.token);
     load();
+  };
+
+  // Cambiar la foto: se reduce en el navegador y se guarda en el barbero
+  const handlePhoto = async (barber, file) => {
+    if (!file) return;
+    setError("");
+    setMessage("");
+    try {
+      const photo = await resizeImageToDataUrl(file);
+      await api.updateBarber(barber._id, { photo }, user.token);
+      setMessage(`Foto de ${barber.name} actualizada`);
+      load();
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const removePhoto = async (barber) => {
+    if (!confirm(`¿Quitar la foto de ${barber.name}? Se mostrará la foto genérica.`)) return;
+    setError("");
+    setMessage("");
+    try {
+      await api.updateBarber(barber._id, { photo: "" }, user.token);
+      setMessage(`Foto de ${barber.name} eliminada`);
+      load();
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   const toggleDay = (day) => {
@@ -100,17 +130,36 @@ export default function AdminBarbers() {
       <h2 style={{ fontSize: "1.1rem", marginBottom: "1rem" }}>Disponibilidad de Barberos</h2>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginBottom: "2.5rem" }}>
         {barbers.map((b) => (
-          <div key={b._id} className="panel" style={{ display: "flex", alignItems: "center", gap: "0.9rem", flex: "1 1 320px" }}>
+          <div key={b._id} className="panel" style={{ display: "flex", alignItems: "center", gap: "0.9rem", flex: "1 1 320px", flexWrap: "wrap" }}>
             <div className="barber-photo-wrap" style={{ width: 64, height: 64, borderRadius: "50%", overflow: "hidden", flexShrink: 0 }}>
               <img
                 className="barber-photo"
-                src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=200&h=200&fit=crop"
+                src={barberPhoto(b, "small")}
                 alt={b.name}
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
             </div>
-            <div style={{ flex: 1 }}>
+            <div style={{ flex: 1, minWidth: 120 }}>
               <div style={{ color: "var(--cream)", fontWeight: 600 }}>{b.name}</div>
+              <div style={{ display: "flex", gap: "0.4rem", marginTop: "0.35rem", flexWrap: "wrap" }}>
+                <label className="btn btn-ghost" style={photoBtnStyle}>
+                  {b.photo ? "Cambiar foto" : "Subir foto"}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    onChange={(e) => {
+                      handlePhoto(b, e.target.files[0]);
+                      e.target.value = ""; // permite volver a elegir el mismo archivo
+                    }}
+                  />
+                </label>
+                {b.photo && (
+                  <button type="button" className="btn btn-ghost" style={photoBtnStyle} onClick={() => removePhoto(b)}>
+                    Quitar
+                  </button>
+                )}
+              </div>
             </div>
             <div style={{ display: "flex", gap: "0.4rem" }}>
               <button
@@ -133,7 +182,7 @@ export default function AdminBarbers() {
       {message && <p style={{ color: "#22c55e", marginBottom: "1rem" }}>{message}</p>}
       {error && !message && <p className="error-text" style={{ marginBottom: "1rem" }}>{error}</p>}
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2rem" }}>
+      <div className="admin-two-col" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2rem" }}>
       <div>
         <h2 style={{ fontSize: "1.1rem", marginBottom: "1rem" }}>
           {editingId ? "Editar barbero" : "Agregar barbero"}
@@ -191,14 +240,14 @@ export default function AdminBarbers() {
         <h2 style={{ fontSize: "1.1rem", marginBottom: "1rem" }}>Barberos activos</h2>
         <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
           {barbers.map((b) => (
-            <div key={b._id} className="panel" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div key={b._id} className="panel admin-row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <div>
                 <div style={{ color: "var(--cream)" }}>{b.name}</div>
                 <div style={{ color: "var(--muted)", fontSize: "0.85rem" }}>
                   {b.schedule?.length ? `${b.schedule.length} días activos` : "Sin horario configurado"}
                 </div>
               </div>
-              <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", justifyContent: "flex-end" }}>
+              <div className="admin-actions" style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", justifyContent: "flex-end" }}>
                 <button className="btn btn-ghost" onClick={() => startEdit(b)}>Editar</button>
                 <button className="btn btn-ghost" onClick={() => { setPasswordFor(passwordFor === b._id ? null : b._id); setNewPassword(""); }}>
                   {b.account?.hasAccount ? "Cambiar contraseña" : "Configurar acceso"}
@@ -220,6 +269,17 @@ export default function AdminBarbers() {
     </div>
   );
 }
+
+const photoBtnStyle = {
+  display: "inline-flex",
+  alignItems: "center",
+  minHeight: 34,
+  margin: 0,
+  padding: "0.25rem 0.6rem",
+  fontSize: "0.75rem",
+  fontWeight: 600,
+  borderRadius: "999px",
+};
 
 const statusBtnStyle = {
   padding: "0.4rem 0.7rem",

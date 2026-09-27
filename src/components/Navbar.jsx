@@ -17,9 +17,9 @@ export default function Navbar() {
     <header style={styles.header}>
       <div className="container" style={styles.inner}>
         <Link to="/" className="navbar-brand">
-          <img src="/logo.png" alt="The Block Barber" className="navbar-logo" />
+          <img src="/logo.png" alt="The Ely Barber" className="navbar-logo" />
           <div className="navbar-brand-name">
-            THE BLOCK<br />BARBER
+            THE ELY<br />BARBER
           </div>
         </Link>
 

@@ -224,7 +224,7 @@ select:focus-visible {
 }
 
 
-/* The Block Barber visual alignment */
+/* Ajustes de alineación visual */
 header a { transition: color .2s ease, opacity .2s ease; }
 header a:hover { color: var(--gold-bright) !important; }
 
@@ -239,7 +239,7 @@ header a:hover { color: var(--gold-bright) !important; }
   header div[style*="fontSize"] { font-size: 2.1rem !important; }
 }
 
-/* The Block Barber - final visual polish */
+/* Ajuste visual final */
 .navbar-brand { transition: transform .25s ease; }
 .navbar-brand:hover { transform: translateY(-1px); }
 .navbar-logo {
@@ -392,4 +392,63 @@ header a:hover { color: var(--gold-bright) !important; }
   .footer-brand { grid-column: auto; }
   .footer-brand-link { align-items: flex-start; }
   .footer-brand-name { font-size: 2.15rem; }
+}
+
+/* =========================================================
+   Ajuste automático a smartphones
+   ========================================================= */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+/* Paneles de administración de dos columnas: en pantallas chicas se apilan */
+@media (max-width: 900px) {
+  .admin-two-col { grid-template-columns: minmax(0, 1fr) !important; gap: 1.5rem !important; }
+}
+
+/* Las pestañas del panel se deslizan si no caben; el difuminado a la derecha
+   avisa que hay más pestañas aunque no se vean completas (p. ej. "Clientes" cortada) */
+.admin-tabs {
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  -webkit-mask-image: linear-gradient(to right, black calc(100% - 28px), transparent 100%);
+  mask-image: linear-gradient(to right, black calc(100% - 28px), transparent 100%);
+}
+.admin-tabs a { flex: 0 0 auto; }
+
+@media (max-width: 760px) {
+  /* Con menos de 16 px, iPhone hace zoom solo al tocar un campo */
+  input, select, textarea { font-size: 16px; }
+
+  /* Botones más fáciles de tocar con el dedo */
+  .btn { min-height: 42px; }
+  .icon-btn { width: 42px !important; height: 42px !important; }
+
+  /* Filas con nombre + botones: los botones pasan a otra línea si no caben */
+  .admin-row { flex-wrap: wrap !important; gap: .75rem !important; }
+  .admin-actions { width: 100%; }
+  .admin-actions .btn { flex: 1 1 auto; }
+
+  /* Enlaces del menú superior con área de toque más grande */
+  header nav a:not(.btn) { padding: .45rem .35rem !important; }
+
+  /* Tabla de citas del admin: cada cita se ve como una tarjeta */
+  .admin-table { min-width: 0 !important; display: block; }
+  .admin-table thead { display: none; }
+  .admin-table tbody { display: block; }
+  .admin-table tr { display: block; padding: .9rem 1.1rem !important; }
+  .admin-table td {
+    display: grid;
+    grid-template-columns: 88px minmax(0, 1fr);
+    gap: .6rem;
+    padding: .45rem 0 !important;
+    border: 0;
+  }
+  .admin-table td::before {
+    content: attr(data-label);
+    padding-top: .2rem;
+    font-size: .7rem;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
 }

@@ -31,7 +31,7 @@ export default function Login() {
       <form onSubmit={handleSubmit} className="panel" style={{ textAlign: "center", borderTop: "2px solid var(--gold)" }}>
         <div style={styles.iconCircle}>🔒</div>
         <h1 style={{ fontSize: "1.4rem", marginBottom: "0.25rem" }}>Panel Admin</h1>
-        <p style={{ marginBottom: "1.5rem" }}>The Block Barber</p>
+        <p style={{ marginBottom: "1.5rem" }}>The Ely Barber</p>
         <div className="field" style={{ textAlign: "left", position: "relative" }}>
           <label htmlFor="password">Contraseña</label>
           <input

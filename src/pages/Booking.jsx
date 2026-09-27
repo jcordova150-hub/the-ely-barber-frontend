@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api";
+import { todayStr } from "../utils/time";
+import { barberPhoto } from "../utils/barbers";
 
 const STEPS = [
   { key: "servicio", label: "Servicio", icon: "✂️" },
@@ -9,7 +11,6 @@ const STEPS = [
   { key: "datos", label: "Datos", icon: "✅" },
 ];
 const MAX_SERVICES = 2;
-const BARBER_PHOTO = "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=200&h=200&fit=crop";
 
 export default function Booking() {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export default function Booking() {
 
   const [selectedServices, setSelectedServices] = useState([]);
   const [barber, setBarber] = useState(null);
-  const minDate = new Date().toISOString().split("T")[0];
+  const minDate = todayStr(); // hoy en Cancún (no en UTC)
   const [date, setDate] = useState(minDate);
   const [time, setTime] = useState("");
   const [guest, setGuest] = useState({ name: "", phone: "", email: "", notes: "" });
@@ -36,16 +37,27 @@ export default function Booking() {
     api.getBarbers().then(setBarbers).catch(() => {});
   }, []);
 
+  // Los horarios se piden al llegar al paso de fecha (y al cambiar de día), así siempre
+  // se descartan los que ya pasaron aunque la persona haya tardado en llegar aquí.
   useEffect(() => {
-    if (selectedServices.length === 0 || !barber || !date) return;
+    if (step !== 2 || selectedServices.length === 0 || !barber || !date) return;
+    let cancelled = false;
     setLoadingSlots(true);
-    setTime("");
     api
       .getAvailability(barber._id, selectedServices.map((s) => s._id), date)
-      .then(setSlots)
-      .catch(() => setSlots([]))
-      .finally(() => setLoadingSlots(false));
-  }, [selectedServices, barber, date]);
+      .then((list) => {
+        if (cancelled) return;
+        setSlots(list);
+        setTime((prev) => (list.includes(prev) ? prev : ""));
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setSlots([]);
+        setTime("");
+      })
+      .finally(() => { if (!cancelled) setLoadingSlots(false); });
+    return () => { cancelled = true; };
+  }, [step, selectedServices, barber, date]);
 
   const toggleService = (s) => {
     const exists = selectedServices.find((x) => x._id === s._id);
@@ -175,7 +187,7 @@ export default function Booking() {
                   style={{ ...styles.barberBtn, ...(barber?._id === b._id ? styles.optionSelected : {}) }}
                 >
                   <div className="barber-photo-wrap" style={styles.barberPhotoWrap}>
-                    <img className="barber-photo" src={BARBER_PHOTO} alt={b.name} style={styles.barberPhotoImg} />
+                    <img className="barber-photo" src={barberPhoto(b, "small")} alt={b.name} style={styles.barberPhotoImg} />
                   </div>
                   <span style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.05rem" }}>{b.name}</span>
                 </button>
@@ -199,7 +211,13 @@ export default function Booking() {
               <div>
                 <label>Horarios disponibles</label>
                 {loadingSlots && <p>Buscando horarios...</p>}
-                {!loadingSlots && slots.length === 0 && <p>No hay horarios disponibles ese día.</p>}
+                {!loadingSlots && slots.length === 0 && (
+                  <p>
+                    {date === minDate
+                      ? "Ya no quedan horarios disponibles hoy. Elige otro día."
+                      : "No hay horarios disponibles ese día."}
+                  </p>
+                )}
                 <div style={styles.slotGrid}>
                   {slots.map((s) => (
                     <button

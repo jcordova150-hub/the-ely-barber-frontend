@@ -60,7 +60,67 @@ export default function Home() {
                   <span style={{ color: "var(--gold)", fontWeight: 700 }}>${s.price.toFixed(2)}</span>
                 </div>
                 {s.description && <p style={{ fontSize: "0.85rem", marginBottom: "0.5rem" }}>{s.description}</p>}
-                <div style={styles.durationRow}><span style={{fontWeight:'bold'}}>MIN</span> {s.durationMinutes} minutos</div>
+                <div
+  style={{
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "0.45rem",
+    color: "var(--gold)",
+    fontSize: "0.8rem",
+    fontWeight: 600,
+    letterSpacing: "0.02em",
+    marginTop: "0.35rem",
+  }}
+>
+  <span
+    style={{
+      width: 24,
+      height: 24,
+      borderRadius: "50%",
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      border: "1px solid rgba(214, 165, 32, 0.45)",
+      background: "rgba(214, 165, 32, 0.08)",
+      boxShadow: "0 0 12px rgba(214, 165, 32, 0.08)",
+      flexShrink: 0,
+    }}
+  >
+    <svg
+      width="13"
+      height="13"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="8.5"
+        stroke="currentColor"
+        strokeWidth="1.7"
+      />
+      <path
+        d="M12 7.5V12L15 14"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M9 3.5H15"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+      />
+    </svg>
+  </span>
+
+  <span>
+    {s.durationMinutes} minutos
+  </span>
+</div>
               </div>
             ))}
             {services.length === 0 && <p>Aún no hay servicios cargados.</p>}
@@ -120,7 +180,43 @@ export default function Home() {
               mientras te atendemos.
             </p>
             <div style={{ display: "flex", gap: "1rem", marginBottom: "1.5rem" }}>
-              <div style={styles.iconCircleSmall}>MAP</div>
+              <div
+  style={{
+    width: 48,
+    height: 48,
+    minWidth: 48,
+    borderRadius: "50%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    background: "linear-gradient(145deg, rgba(214,165,32,.16), rgba(214,165,32,.035))",
+    border: "1px solid rgba(214,165,32,.5)",
+    boxShadow: "0 8px 24px rgba(0,0,0,.28)",
+    color: "var(--gold)",
+  }}
+>
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M20 10.2C20 15.4 12 21 12 21C12 21 4 15.4 4 10.2C4 5.8 7.5 3 12 3C16.5 3 20 5.8 20 10.2Z"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinejoin="round"
+    />
+    <circle
+      cx="12"
+      cy="10"
+      r="2.8"
+      stroke="currentColor"
+      strokeWidth="1.8"
+    />
+  </svg>
+</div>
               <div>
                 <div style={{ color: "var(--cream)", fontWeight: 600 }}>Dirección</div>
                 <div>Cancún, Quintana Roo, México</div>
@@ -135,7 +231,41 @@ export default function Home() {
               </div>
             </div>
             <div style={{ display: "flex", gap: "1rem" }}>
-              <div className="location-whatsapp-icon" style={styles.iconCircleSmall}>WA</div>
+              <div
+  className="location-whatsapp-icon"
+  style={{
+    width: 48,
+    height: 48,
+    minWidth: 48,
+    borderRadius: "50%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    background: "linear-gradient(145deg, rgba(214,165,32,.16), rgba(214,165,32,.035))",
+    border: "1px solid rgba(214,165,32,.5)",
+    boxShadow: "0 8px 24px rgba(0,0,0,.28)",
+    color: "var(--gold)",
+  }}
+>
+  <svg
+    width="25"
+    height="25"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M20 11.5C20 16.2 16.4 20 12 20C10.6 20 9.3 19.6 8.2 19L4 20L5.1 16.2C4.4 15 4 13.8 4 12.5C4 7.8 7.6 4 12 4C16.4 4 20 7.8 20 11.5Z"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M8.3 9.1C8.5 8.6 8.8 8.4 9.2 8.4H9.8C10 8.4 10.2 8.5 10.3 8.7L11 10.1C11.1 10.3 11.1 10.5 10.9 10.7L10.3 11.3C10.9 12.4 11.8 13.3 12.9 13.9L13.5 13.3C13.7 13.1 13.9 13.1 14.1 13.2L15.5 13.9C15.7 14 15.8 14.2 15.8 14.4V15.1C15.8 15.5 15.6 15.8 15.1 16C14.5 16.2 13.8 16.1 13.2 15.9C10.8 15.1 8.8 13.1 8 10.7C7.8 10.1 7.7 9.4 8.3 9.1Z"
+      fill="currentColor"
+    />
+  </svg>
+</div>
               <div>
                 <div style={{ color: "var(--cream)", fontWeight: 600 }}>WhatsApp</div>
                 <a
@@ -278,6 +408,9 @@ const styles = {
     border: "1px solid var(--navy-line)",
   },
 };
+
+
+
 
 
 

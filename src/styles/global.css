@@ -224,7 +224,7 @@ select:focus-visible {
 }
 
 
-/* Ajustes de alineación visual */
+/* Ajustes de alineaciÃ³n visual */
 header a { transition: color .2s ease, opacity .2s ease; }
 header a:hover { color: var(--gold-bright) !important; }
 
@@ -257,7 +257,7 @@ header a:hover { color: var(--gold-bright) !important; }
 .navbar-brand-name {
   font-family: var(--font-display);
   color: var(--gold);
-  font-size: 3.05rem;
+  font-size: 3.8rem;
   line-height: 1.05;
   font-weight: 700;
   letter-spacing: .14em;
@@ -395,17 +395,17 @@ header a:hover { color: var(--gold-bright) !important; }
 }
 
 /* =========================================================
-   Ajuste automático a smartphones
+   Ajuste automÃ¡tico a smartphones
    ========================================================= */
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
-/* Paneles de administración de dos columnas: en pantallas chicas se apilan */
+/* Paneles de administraciÃ³n de dos columnas: en pantallas chicas se apilan */
 @media (max-width: 900px) {
   .admin-two-col { grid-template-columns: minmax(0, 1fr) !important; gap: 1.5rem !important; }
 }
 
-/* Las pestañas del panel se deslizan si no caben; el difuminado a la derecha
-   avisa que hay más pestañas aunque no se vean completas (p. ej. "Clientes" cortada) */
+/* Las pestaÃ±as del panel se deslizan si no caben; el difuminado a la derecha
+   avisa que hay mÃ¡s pestaÃ±as aunque no se vean completas (p. ej. "Clientes" cortada) */
 .admin-tabs {
   overflow-x: auto;
   white-space: nowrap;
@@ -419,16 +419,16 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   /* Con menos de 16 px, iPhone hace zoom solo al tocar un campo */
   input, select, textarea { font-size: 16px; }
 
-  /* Botones más fáciles de tocar con el dedo */
+  /* Botones mÃ¡s fÃ¡ciles de tocar con el dedo */
   .btn { min-height: 42px; }
   .icon-btn { width: 42px !important; height: 42px !important; }
 
-  /* Filas con nombre + botones: los botones pasan a otra línea si no caben */
+  /* Filas con nombre + botones: los botones pasan a otra lÃ­nea si no caben */
   .admin-row { flex-wrap: wrap !important; gap: .75rem !important; }
   .admin-actions { width: 100%; }
   .admin-actions .btn { flex: 1 1 auto; }
 
-  /* Enlaces del menú superior con área de toque más grande */
+  /* Enlaces del menÃº superior con Ã¡rea de toque mÃ¡s grande */
   header nav a:not(.btn) { padding: .45rem .35rem !important; }
 
   /* Tabla de citas del admin: cada cita se ve como una tarjeta */
@@ -452,3 +452,70 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     color: var(--muted);
   }
 }
+
+
+/* =========================================================
+   Encabezado The Ely Barber - escritorio
+   ========================================================= */
+@media (min-width: 901px) {
+  header > .container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .navbar-brand {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0;
+  }
+
+  .navbar-logo {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .navbar-brand-name {
+    font-size: 3.8rem;
+    line-height: 1;
+    letter-spacing: .14em;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  header nav {
+    margin-left: auto;
+    flex-wrap: nowrap !important;
+    justify-content: flex-end !important;
+  }
+}
+
+/* Extender navbar hacia los extremos */
+@media (min-width: 901px) {
+  header > .container {
+    max-width: 1500px !important;
+    width: calc(100% - 40px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+/* Acercar navbar un poco más a los extremos */
+@media (min-width: 901px) {
+  header > .container {
+    max-width: 1560px !important;
+    width: calc(100% - 20px) !important;
+  }
+}
+
+/* Acercar navbar un poco más a los extremos */
+@media (min-width: 901px) {
+  header > .container {
+    max-width: 1560px !important;
+    width: calc(100% - 20px) !important;
+  }
+}
+

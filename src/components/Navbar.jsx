@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+﻿import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
@@ -19,7 +19,7 @@ export default function Navbar() {
         <Link to="/" className="navbar-brand">
           <img src="/logo.png" alt="The Ely Barber" className="navbar-logo" />
           <div className="navbar-brand-name">
-            THE ELY<br />BARBER
+            THE ELY BARBER
           </div>
         </Link>
 

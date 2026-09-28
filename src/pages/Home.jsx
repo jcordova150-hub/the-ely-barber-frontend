@@ -63,7 +63,7 @@ export default function Home() {
                 <div style={styles.durationRow}><span style={{fontWeight:'bold'}}>MIN</span> {s.durationMinutes} minutos</div>
               </div>
             ))}
-            {services.length === 0 && <p>Aï¿½n no hay servicios cargados.</p>}
+            {services.length === 0 && <p>Aún no hay servicios cargados.</p>}
           </div>
         </div>
       </section>
@@ -98,18 +98,18 @@ export default function Home() {
                 </h4>
                 {b.specialties?.length > 0 && (
                   <p style={{ color: "var(--gold)", fontSize: "0.85rem", marginBottom: "0.4rem" }}>
-                    {b.specialties.join(" ï¿½ ")}
+                    {b.specialties.join(" • ")}
                   </p>
                 )}
                 {b.bio && <p style={{ fontSize: "0.85rem" }}>{b.bio}</p>}
               </div>
             ))}
-            {barbers.length === 0 && <p>Aï¿½n no hay barberos registrados.</p>}
+            {barbers.length === 0 && <p>Aún no hay barberos registrados.</p>}
           </div>
         </div>
       </section>
 
-      {/* UBICACIï¿½N */}
+      {/* UBICACIÓN */}
       <section style={{ padding: "5rem 0", background: "var(--navy-panel)", borderTop: "1px solid var(--navy-line)" }}>
         <div className="container" style={styles.locationGrid}>
           <div>

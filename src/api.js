@@ -45,4 +45,26 @@ export const api = {
   getMyAppointments: (token) => request("/appointments/my", { token }),
 
   getClients: (token) => request("/clients", { token }),
+
+  // Fidelidad
+  getLoyaltyClients: (token) =>
+    request("/loyalty", { token }),
+
+  createLoyaltyClient: (body, token) =>
+    request("/loyalty", { method: "POST", body, token }),
+
+  addLoyaltyStamp: (id, token) =>
+    request(`/loyalty/${id}/stamp`, { method: "POST", token }),
+
+  removeLoyaltyStamp: (id, token) =>
+    request(`/loyalty/${id}/stamp`, { method: "DELETE", token }),
+
+  redeemLoyaltyReward: (id, token) =>
+    request(`/loyalty/${id}/redeem`, { method: "POST", token }),
+
+  getLoyaltyCard: (publicCode) =>
+    request(`/loyalty/card/${publicCode}`),
+
+  deleteLoyaltyClient: (id, token) =>
+    request(`/loyalty/${id}`, { method: "DELETE", token }),
 };

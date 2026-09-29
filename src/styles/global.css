@@ -405,7 +405,7 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 }
 
 /* Las pestaÃ±as del panel se deslizan si no caben; el difuminado a la derecha
-   avisa que hay mÃ¡s pestaÃ±as aunque no se vean completas (p. ej. "Clientes" cortada) */
+   avisa que hay más pestañas aunque no se vean completas (p. ej. "Clientes" cortada) */
 .admin-tabs {
   overflow-x: auto;
   white-space: nowrap;

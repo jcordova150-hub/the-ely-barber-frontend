@@ -127,14 +127,14 @@ export default function Booking() {
   }
 
   return (
-    <div className="container" style={{ maxWidth: 640, padding: "3.5rem 1.5rem" }}>
+    <div className="container booking-page" style={{ maxWidth: 640, padding: "3.5rem 1.5rem" }}>
       <h1 style={{ textAlign: "center", marginBottom: "2rem" }}>Reserva tu Cita</h1>
 
-      <div style={styles.stepper}>
+      <div className="booking-stepper" style={styles.stepper}>
         {STEPS.map((s, i) => (
-          <div key={s.key} style={styles.stepperItem}>
-            <div style={{ ...styles.stepCircle, ...(i === step ? styles.stepCircleActive : {}) }}>{s.icon}</div>
-            <div style={{ ...styles.stepLabel, ...(i === step ? { color: "var(--gold)" } : {}) }}>{s.label}</div>
+          <div key={s.key} className="booking-stepper-item" style={styles.stepperItem}>
+            <div className="booking-step-circle" style={{ ...styles.stepCircle, ...(i === step ? styles.stepCircleActive : {}) }}>{s.icon}</div>
+            <div className="booking-step-label" style={{ ...styles.stepLabel, ...(i === step ? { color: "var(--gold)" } : {}) }}>{s.label}</div>
           </div>
         ))}
       </div>
@@ -146,7 +146,7 @@ export default function Booking() {
             <p style={{ marginBottom: "1.25rem" }}>
               Puedes elegir hasta <span style={{ color: "var(--gold)", fontWeight: 700 }}>{MAX_SERVICES} servicios</span>. Toca para seleccionar o deseleccionar.
             </p>
-            <div style={styles.optionList}>
+            <div className="booking-option-list" style={styles.optionList}>
               {services.map((s) => {
                 const selected = selectedServices.find((x) => x._id === s._id);
                 return (
@@ -164,7 +164,7 @@ export default function Booking() {
                 );
               })}
             </div>
-            <div style={styles.navRow}>
+            <div className="booking-nav-row" style={styles.navRow}>
               <span />
               <button className="btn btn-solid" disabled={selectedServices.length === 0} onClick={goNext}>
                 Continuar
@@ -176,7 +176,7 @@ export default function Booking() {
         {step === 1 && (
           <div>
             <h3 style={{ marginBottom: "1.25rem" }}>Elige tu Barbero</h3>
-            <div style={styles.barberGrid}>
+            <div className="booking-barber-grid" style={styles.barberGrid}>
               {barbers.map((b) => (
                 <button
                   key={b._id}
@@ -193,7 +193,7 @@ export default function Booking() {
                 </button>
               ))}
             </div>
-            <div style={styles.navRow}>
+            <div className="booking-nav-row" style={styles.navRow}>
               <button className="btn btn-ghost" onClick={goBack}>Atrás</button>
               <span />
             </div>
@@ -218,7 +218,7 @@ export default function Booking() {
                       : "No hay horarios disponibles ese día."}
                   </p>
                 )}
-                <div style={styles.slotGrid}>
+                <div className="booking-slot-grid" style={styles.slotGrid}>
                   {slots.map((s) => (
                     <button
                       key={s}
@@ -232,7 +232,7 @@ export default function Booking() {
                 </div>
               </div>
             )}
-            <div style={styles.navRow}>
+            <div className="booking-nav-row" style={styles.navRow}>
               <button className="btn btn-ghost" onClick={goBack}>Atrás</button>
               <button className="btn btn-solid" disabled={!time} onClick={goNext}>Continuar</button>
             </div>
@@ -265,7 +265,7 @@ export default function Booking() {
               <input id="gnotes" value={guest.notes} onChange={(e) => setGuest({ ...guest, notes: e.target.value })} />
             </div>
             {error && <p className="error-text">{error}</p>}
-            <div style={styles.navRow}>
+            <div className="booking-nav-row" style={styles.navRow}>
               <button className="btn btn-ghost" onClick={goBack}>Atrás</button>
               <button className="btn btn-solid" disabled={!guest.name || !guest.phone || submitting} onClick={handleConfirm}>
                 {submitting ? "Confirmando..." : "Confirmar cita"}

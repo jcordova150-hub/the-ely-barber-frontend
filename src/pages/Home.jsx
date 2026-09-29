@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../api";
 import { barberPhoto } from "../utils/barbers";
@@ -15,20 +15,20 @@ export default function Home() {
   return (
     <div>
       {/* HERO */}
-      <section style={styles.hero}>
+      <section className="home-hero" style={styles.hero}>
         <img src="/hero-bg.png" alt="" style={styles.heroBg} aria-hidden="true" />
         <div style={styles.heroOverlay} />
-        <div className="container" style={styles.heroContent}>
+        <div className="container home-hero-content" style={styles.heroContent}>
           <div style={styles.badge}>Grooming Premium</div>
-          <h1 style={styles.heroTitle}>
+          <h1 className="home-hero-title" style={styles.heroTitle}>
             ELEVA TU <br />
             <span className="gold-gradient-text" style={{ fontStyle: "italic" }}>ESTILO</span>
           </h1>
-          <p style={styles.heroSub}>
+          <p className="home-hero-sub" style={styles.heroSub}>
             No es solo un corte, es una experiencia. En The Ely Barber combinamos la tradición
             con la vanguardia para darte el mejor aspecto.
           </p>
-          <div style={styles.heroButtons}>
+          <div className="home-hero-buttons" style={styles.heroButtons}>
             <Link to="/reservar" className="btn btn-solid" style={{ fontSize: "1.05rem" }}>
               Reservar Ahora →
             </Link>
@@ -52,7 +52,7 @@ export default function Home() {
             <div style={styles.eyebrow}>Nuestra Especialidad</div>
             <h2 style={{ fontSize: "2.2rem" }}>Servicios</h2>
           </div>
-          <div style={styles.serviceGrid}>
+          <div className="home-service-grid" style={styles.serviceGrid}>
             {services.map((s) => (
               <div key={s._id} className="service-card" style={styles.serviceCard}>
                 <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem" }}>
@@ -133,7 +133,7 @@ export default function Home() {
         <img src="/tools-bg.png" alt="" style={styles.toolsBg} aria-hidden="true" />
         <div style={styles.toolsOverlay} />
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
-          <div style={styles.barberHeader}>
+          <div className="home-barber-header" style={styles.barberHeader}>
             <div>
               <div style={styles.eyebrow}>El Equipo</div>
               <h2 style={{ fontSize: "2.2rem" }}>Nuestros Barberos</h2>
@@ -142,7 +142,7 @@ export default function Home() {
               Elegir Barbero
             </Link>
           </div>
-          <div style={styles.barberGrid}>
+          <div className="home-barber-grid" style={styles.barberGrid}>
             {barbers.map((b) => (
               <div key={b._id}>
                 <div className="barber-photo-wrap" style={styles.barberAvatar}>
@@ -171,7 +171,7 @@ export default function Home() {
 
       {/* UBICACIÓN */}
       <section style={{ padding: "5rem 0", background: "var(--navy-panel)", borderTop: "1px solid var(--navy-line)" }}>
-        <div className="container" style={styles.locationGrid}>
+        <div className="container home-location-grid" style={styles.locationGrid}>
           <div>
             <div style={styles.eyebrow}>Visítanos</div>
             <h2 style={{ fontSize: "2.2rem", marginBottom: "1rem" }}>Ubicación</h2>
@@ -287,7 +287,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div style={styles.mapWrap}>
+          <div className="home-map-wrap" style={styles.mapWrap}>
             <iframe
               title="Ubicación The Ely Barber"
               src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14881.750677202033!2d-86.8662667!3d21.1747657!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f4c2d0042f4a2b3%3A0xc05d04142b8e2b5f!2sTHE%20ELY%20BARBER!5e0!3m2!1ses-419!2smx!4v1790222034085!5m2!1ses-419!2smx"

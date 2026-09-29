@@ -519,3 +519,880 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
   }
 }
 
+
+/* =========================================================
+   THE ELY BARBER - OPTIMIZACION MOVIL 2026
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  img,
+  iframe {
+    max-width: 100%;
+  }
+
+  .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* ---------- ENCABEZADO ---------- */
+
+  header {
+    padding: .35rem 0 .65rem !important;
+  }
+
+  header > .container {
+    width: 100% !important;
+    padding-left: .75rem !important;
+    padding-right: .75rem !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: .45rem !important;
+  }
+
+  .navbar-brand {
+    width: 100%;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: .55rem !important;
+  }
+
+  .navbar-logo {
+    width: 68px !important;
+    height: 68px !important;
+    flex: 0 0 68px;
+  }
+
+  .navbar-brand-name {
+    font-size: clamp(1.25rem, 6vw, 1.75rem) !important;
+    line-height: 1 !important;
+    letter-spacing: .08em !important;
+    white-space: nowrap;
+    text-align: left !important;
+  }
+
+  header nav {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: .25rem .45rem !important;
+  }
+
+  header nav a:not(.btn) {
+    padding: .45rem .35rem !important;
+    font-size: .82rem !important;
+    line-height: 1.1;
+  }
+
+  header nav .btn {
+    min-height: 38px !important;
+    padding: .55rem .8rem !important;
+    font-size: .8rem !important;
+    border-radius: .6rem !important;
+  }
+
+  /* ---------- CONTENIDO GENERAL ---------- */
+
+  h1 {
+    overflow-wrap: break-word;
+  }
+
+  h2 {
+    font-size: clamp(1.7rem, 8vw, 2.1rem) !important;
+  }
+
+  .panel {
+    padding: 1rem !important;
+    border-radius: .8rem !important;
+  }
+
+  .btn {
+    max-width: 100%;
+    padding: .8rem 1rem;
+  }
+
+  input,
+  select,
+  textarea {
+    max-width: 100%;
+    min-height: 44px;
+  }
+
+  /* ---------- SERVICIOS ---------- */
+
+  .service-card {
+    width: 100%;
+    padding: 1.15rem !important;
+  }
+
+  /* ---------- BARBEROS ---------- */
+
+  .barber-photo-wrap {
+    max-width: 100%;
+  }
+
+  /* ---------- FOOTER ---------- */
+
+  .site-footer {
+    padding-top: 2.25rem !important;
+  }
+
+  .footer-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 1.6rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .footer-brand {
+    width: 100%;
+  }
+
+  .footer-brand-link {
+    width: 100%;
+    align-items: center !important;
+    gap: .75rem !important;
+  }
+
+  .footer-logo {
+    width: 78px !important;
+    height: 78px !important;
+    flex: 0 0 78px;
+  }
+
+  .footer-brand-name {
+    font-size: clamp(1.55rem, 7vw, 2rem) !important;
+    letter-spacing: .06em !important;
+  }
+
+  .footer-description {
+    margin-top: 1rem !important;
+    font-size: .9rem !important;
+  }
+
+  .footer-socials {
+    flex-wrap: wrap;
+  }
+
+  .footer-bottom {
+    padding: 1rem !important;
+    font-size: .76rem !important;
+  }
+
+  /* ---------- ADMINISTRACION ---------- */
+
+  .admin-two-col {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .admin-row {
+    min-width: 0 !important;
+  }
+
+  .admin-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+  }
+
+  .admin-actions .btn {
+    flex: 1 1 120px;
+  }
+}
+
+@media (max-width: 380px) {
+
+  .container {
+    padding-left: .75rem !important;
+    padding-right: .75rem !important;
+  }
+
+  .navbar-logo {
+    width: 58px !important;
+    height: 58px !important;
+    flex-basis: 58px;
+  }
+
+  .navbar-brand-name {
+    font-size: 1.15rem !important;
+    letter-spacing: .055em !important;
+  }
+
+  header nav a:not(.btn) {
+    font-size: .76rem !important;
+    padding: .4rem .25rem !important;
+  }
+
+  header nav .btn {
+    font-size: .75rem !important;
+    padding: .5rem .65rem !important;
+  }
+
+  .panel {
+    padding: .85rem !important;
+  }
+}
+/* =========================================================
+   THE ELY BARBER - HOME RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  /* ---------- HERO ---------- */
+
+  .home-hero {
+    min-height: calc(100svh - 130px) !important;
+    align-items: center !important;
+  }
+
+  .home-hero-content {
+    max-width: 100% !important;
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  .home-hero-title {
+    font-size: clamp(2.8rem, 15vw, 4.25rem) !important;
+    line-height: .98 !important;
+    margin-bottom: 1.25rem !important;
+    overflow-wrap: normal !important;
+  }
+
+  .home-hero-sub {
+    max-width: 100% !important;
+    font-size: 1rem !important;
+    line-height: 1.65 !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .home-hero-buttons {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: .75rem !important;
+  }
+
+  .home-hero-buttons .btn {
+    width: 100% !important;
+    min-height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    margin: 0 !important;
+  }
+
+  /* ---------- SERVICIOS ---------- */
+
+  .home-service-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: .85rem !important;
+  }
+
+  .home-service-grid .service-card {
+    min-width: 0 !important;
+  }
+
+  /* ---------- BARBEROS ---------- */
+
+  .home-barber-header {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 1.25rem !important;
+    margin-bottom: 2rem !important;
+  }
+
+  .home-barber-header .btn {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  .home-barber-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1rem !important;
+  }
+
+  .home-barber-grid > div {
+    min-width: 0 !important;
+  }
+
+  .home-barber-grid h4,
+  .home-barber-grid p {
+    overflow-wrap: anywhere;
+  }
+
+  /* ---------- UBICACION ---------- */
+
+  .home-location-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 2rem !important;
+    align-items: stretch !important;
+  }
+
+  .home-location-grid > div {
+    min-width: 0 !important;
+  }
+
+  .home-location-grid a {
+    overflow-wrap: anywhere;
+  }
+
+  .home-map-wrap {
+    width: 100% !important;
+    height: 280px !important;
+    min-height: 280px !important;
+  }
+
+  .home-map-wrap iframe {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+/* Celulares muy pequeños */
+@media (max-width: 380px) {
+
+  .home-hero-title {
+    font-size: clamp(2.45rem, 14vw, 3.25rem) !important;
+  }
+
+  .home-hero-sub {
+    font-size: .94rem !important;
+  }
+
+  .home-barber-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .home-map-wrap {
+    height: 240px !important;
+    min-height: 240px !important;
+  }
+}
+/* =========================================================
+   THE ELY BARBER - RESERVAR RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  /* ---------- PAGINA ---------- */
+
+  .booking-page {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-top: 2rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .booking-page > h1 {
+    font-size: clamp(1.9rem, 9vw, 2.5rem) !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* ---------- PASOS ---------- */
+
+  .booking-stepper {
+    width: 100% !important;
+    margin-bottom: 1.4rem !important;
+    gap: .2rem !important;
+  }
+
+  .booking-stepper-item {
+    min-width: 0 !important;
+    gap: .3rem !important;
+  }
+
+  .booking-step-circle {
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    font-size: 1rem !important;
+  }
+
+  .booking-step-label {
+    width: 100%;
+    font-size: .6rem !important;
+    letter-spacing: .025em !important;
+    text-align: center !important;
+    overflow-wrap: anywhere;
+  }
+
+  /* ---------- PANEL PRINCIPAL ---------- */
+
+  .booking-panel {
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 1rem !important;
+  }
+
+  .booking-panel h3 {
+    font-size: 1.3rem !important;
+    line-height: 1.25 !important;
+  }
+
+  /* ---------- SERVICIOS ---------- */
+
+  .booking-option-list {
+    width: 100% !important;
+    gap: .65rem !important;
+  }
+
+  .booking-option-list > button {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 68px !important;
+    padding: .85rem .9rem !important;
+    gap: .75rem !important;
+  }
+
+  .booking-option-list > button > div {
+    min-width: 0 !important;
+  }
+
+  .booking-option-list > button > span {
+    flex-shrink: 0 !important;
+  }
+
+  /* ---------- BARBEROS ---------- */
+
+  .booking-barber-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: .75rem !important;
+  }
+
+  .booking-barber-grid > button {
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: .75rem !important;
+  }
+
+  .booking-barber-grid .barber-photo-wrap {
+    width: 100% !important;
+  }
+
+  /* ---------- HORARIOS ---------- */
+
+  .booking-slot-grid {
+    width: 100% !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: .55rem !important;
+  }
+
+  .booking-slot-grid .btn {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 44px !important;
+    padding: .65rem .3rem !important;
+    font-size: .88rem !important;
+  }
+
+  /* ---------- NAVEGACION ---------- */
+
+  .booking-nav-row {
+    width: 100% !important;
+    gap: .65rem !important;
+    align-items: stretch !important;
+  }
+
+  .booking-nav-row .btn {
+    min-height: 46px !important;
+    padding: .75rem 1rem !important;
+  }
+
+  /* ---------- FORMULARIO ---------- */
+
+  .booking-panel .field {
+    width: 100% !important;
+  }
+
+  .booking-panel input,
+  .booking-panel select,
+  .booking-panel textarea {
+    width: 100% !important;
+    font-size: 16px !important;
+  }
+
+  .booking-panel .panel {
+    padding: .9rem !important;
+  }
+
+  .booking-panel .panel p {
+    overflow-wrap: anywhere;
+  }
+}
+
+/* Celulares especialmente angostos */
+@media (max-width: 380px) {
+
+  .booking-page {
+    padding-top: 1.5rem !important;
+  }
+
+  .booking-step-circle {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+    font-size: .9rem !important;
+  }
+
+  .booking-step-label {
+    font-size: .54rem !important;
+  }
+
+  .booking-barber-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .booking-slot-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .booking-nav-row {
+    flex-wrap: wrap !important;
+  }
+
+  .booking-nav-row .btn {
+    flex: 1 1 120px !important;
+  }
+}
+/* =========================================================
+   THE ELY BARBER - FIDELIDAD ADMIN RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  /* ---------- PAGINA ---------- */
+
+  .loyalty-admin-page {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /* ---------- CLIENTES + TARJETA ---------- */
+
+  .loyalty-admin-layout {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 1.25rem !important;
+    width: 100% !important;
+  }
+
+  .loyalty-admin-sidebar,
+  .loyalty-admin-main {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .loyalty-admin-sidebar {
+    overflow: hidden !important;
+  }
+
+  .loyalty-admin-sidebar input {
+    font-size: 16px !important;
+  }
+
+  /* ---------- TARJETA ---------- */
+
+  .loyalty-admin-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    padding: 1rem !important;
+    border-radius: 16px !important;
+  }
+
+  .loyalty-card-header {
+    width: 100% !important;
+    min-width: 0 !important;
+    gap: .65rem !important;
+  }
+
+  .loyalty-card-header > div {
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+  }
+
+  .loyalty-card-header img {
+    width: 58px !important;
+    height: 58px !important;
+    flex: 0 0 58px !important;
+  }
+
+  /* ---------- SELLOS ---------- */
+
+  .loyalty-stamp-grid {
+    width: 100% !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: .7rem !important;
+    margin: 1.2rem 0 !important;
+  }
+
+  .loyalty-stamp-grid > div {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* ---------- INFORMACION + QR ---------- */
+
+  .loyalty-card-info {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 1.25rem !important;
+  }
+
+  .loyalty-card-info > div {
+    min-width: 0 !important;
+  }
+
+  .loyalty-qr-box {
+    width: fit-content !important;
+    max-width: 100% !important;
+    align-self: center !important;
+  }
+
+  .loyalty-qr-box svg {
+    max-width: 130px !important;
+    height: auto !important;
+  }
+
+  /* ---------- BOTONES ---------- */
+
+  .loyalty-actions {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: .65rem !important;
+  }
+
+  .loyalty-actions button {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 48px !important;
+    margin: 0 !important;
+  }
+
+  /* ---------- ENLACE PERSONAL ---------- */
+
+  .loyalty-link-box {
+    width: 100% !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: .8rem !important;
+  }
+
+  .loyalty-link-box > div {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .loyalty-link-box button {
+    width: 100% !important;
+    min-height: 44px !important;
+  }
+
+  /* ---------- REGISTRAR CLIENTE ---------- */
+
+  .loyalty-new-client {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    padding: 1rem !important;
+  }
+
+  .loyalty-new-client-form {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: .75rem !important;
+  }
+
+  .loyalty-new-client-form input,
+  .loyalty-new-client-form button {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 46px !important;
+    font-size: 16px !important;
+  }
+
+  .loyalty-new-client-form button {
+    font-size: .82rem !important;
+  }
+}
+
+/* Celulares muy pequeños */
+@media (max-width: 380px) {
+
+  .loyalty-admin-card {
+    padding: .8rem !important;
+  }
+
+  .loyalty-card-header img {
+    width: 50px !important;
+    height: 50px !important;
+    flex-basis: 50px !important;
+  }
+
+  .loyalty-stamp-grid {
+    gap: .55rem !important;
+  }
+
+  .loyalty-qr-box {
+    transform: scale(.92);
+    transform-origin: center;
+  }
+}
+/* =========================================================
+   FIDELIDAD MOVIL - TARJETA COMPACTA 5 x 2
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .loyalty-admin-card {
+    padding: .85rem !important;
+  }
+
+  .loyalty-card-header {
+    align-items: flex-start !important;
+    padding-bottom: .75rem !important;
+  }
+
+  .loyalty-card-header img {
+    width: 48px !important;
+    height: 48px !important;
+    flex: 0 0 48px !important;
+  }
+
+  /*
+     Los 10 espacios vuelven a 5 columnas x 2 filas.
+     minmax(0,1fr) permite que realmente quepan en el celular.
+  */
+  .loyalty-stamp-grid {
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    gap: .35rem !important;
+    width: 100% !important;
+    margin: 1rem 0 !important;
+  }
+
+  .loyalty-stamp-grid > div {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    aspect-ratio: 1 / 1 !important;
+    border-width: 1px !important;
+    border-radius: 7px !important;
+    overflow: hidden !important;
+  }
+
+  .loyalty-stamp-grid img {
+    width: 82% !important;
+    height: 82% !important;
+    max-width: 82% !important;
+  }
+
+  /* Premios 5 y 10 */
+  .loyalty-stamp-grid > div span {
+    max-width: 100% !important;
+    text-align: center !important;
+    line-height: 1 !important;
+  }
+
+  .loyalty-stamp-grid > div strong {
+    max-width: 100% !important;
+    font-size: clamp(.38rem, 1.8vw, .55rem) !important;
+    line-height: .95 !important;
+    text-align: center !important;
+  }
+
+  .loyalty-card-info {
+    padding-top: 1rem !important;
+  }
+
+  .loyalty-qr-box {
+    transform: none !important;
+    padding: .5rem !important;
+  }
+
+  .loyalty-qr-box svg {
+    width: 115px !important;
+    height: 115px !important;
+  }
+}
+
+/* Pantallas extremadamente angostas */
+@media (max-width: 340px) {
+
+  .loyalty-stamp-grid {
+    gap: .25rem !important;
+  }
+
+  .loyalty-admin-card {
+    padding: .7rem !important;
+  }
+
+  .loyalty-card-header img {
+    width: 42px !important;
+    height: 42px !important;
+    flex-basis: 42px !important;
+  }
+}
+/* =========================================================
+   FIDELIDAD MOVIL - AJUSTE DE PREMIOS
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  /* Ocultar el regalo grande dentro de las casillas compactas */
+  .loyalty-stamp-grid > div span[style*="font-size: 2.5rem"],
+  .loyalty-stamp-grid > div span[style*="fontSize"] {
+    font-size: .48rem !important;
+    margin: 0 !important;
+    line-height: 1 !important;
+  }
+
+  /* Texto FELICIDADES */
+  .loyalty-stamp-grid > div span {
+    font-size: .36rem !important;
+    letter-spacing: 0 !important;
+    line-height: 1 !important;
+    margin: 0 0 .12rem !important;
+  }
+
+  /* CORTE GRATIS */
+  .loyalty-stamp-grid > div strong {
+    font-size: .48rem !important;
+    line-height: .9 !important;
+    letter-spacing: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Si el premio ya fue ganado, el regalo no debe desbordarse */
+  .loyalty-stamp-grid > div span:first-child {
+    max-height: 18px !important;
+    overflow: hidden !important;
+  }
+}

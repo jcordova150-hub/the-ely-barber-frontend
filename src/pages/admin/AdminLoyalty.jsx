@@ -239,7 +239,7 @@ export default function AdminLoyalty() {
   };
 
   return (
-    <div style={styles.page}>
+    <div className="loyalty-admin-page" style={styles.page}>
       <div style={styles.heading}>
         <div>
           <h2 style={styles.title}>Tarjeta de Fidelidad</h2>
@@ -252,8 +252,8 @@ export default function AdminLoyalty() {
       {error && <div style={styles.error}>{error}</div>}
       {message && <div style={styles.message}>{message}</div>}
 
-      <div style={styles.layout}>
-        <aside style={styles.sidebar}>
+      <div className="loyalty-admin-layout" style={styles.layout}>
+        <aside className="loyalty-admin-sidebar" style={styles.sidebar}>
           <h3 style={styles.sideTitle}>Clientes</h3>
 
           <input
@@ -300,11 +300,11 @@ export default function AdminLoyalty() {
           </div>
         </aside>
 
-        <main style={styles.main}>
+        <main className="loyalty-admin-main" style={styles.main}>
           {selected ? (
             <>
-              <section style={styles.card}>
-                <div style={styles.cardHeader}>
+              <section className="loyalty-admin-card" style={styles.card}>
+                <div className="loyalty-card-header" style={styles.cardHeader}>
                   <div>
                     <div style={styles.brand}>THE ELY BARBER</div>
                     <h3 style={styles.cardTitle}>
@@ -333,7 +333,7 @@ export default function AdminLoyalty() {
                   </div>
                 )}
 
-                <div style={styles.stampGrid}>
+                <div className="loyalty-stamp-grid" style={styles.stampGrid}>
                   {Array.from({
                     length: selected.stampsGoal || 10,
                   }).map((_, index) => {
@@ -379,7 +379,7 @@ export default function AdminLoyalty() {
                   })}
                 </div>
 
-                <div style={styles.cardInfo}>
+                <div className="loyalty-card-info" style={styles.cardInfo}>
                   <div style={styles.customer}>
                     <strong style={styles.customerName}>
                       {selected.name}
@@ -409,7 +409,7 @@ export default function AdminLoyalty() {
                     )}
                   </div>
 
-                  <div style={styles.qrBox}>
+                  <div className="loyalty-qr-box" style={styles.qrBox}>
                     <QRCodeSVG
                       value={publicUrl(selected)}
                       size={130}
@@ -424,7 +424,7 @@ export default function AdminLoyalty() {
                 </div>
               </section>
 
-              <div style={styles.actions}>
+              <div className="loyalty-actions" style={styles.actions}>
                 <button
                   type="button"
                   onClick={addStamp}
@@ -453,7 +453,7 @@ export default function AdminLoyalty() {
                 </button>
               </div>
 
-              <div style={styles.linkBox}>
+              <div className="loyalty-link-box" style={styles.linkBox}>
                 <div style={{ flex: 1 }}>
                   <strong style={styles.linkTitle}>
                     Enlace personal de la tarjeta
@@ -480,10 +480,10 @@ export default function AdminLoyalty() {
         </main>
       </div>
 
-      <section style={styles.newClient}>
+      <section className="loyalty-new-client" style={styles.newClient}>
         <h3 style={styles.newTitle}>Registrar nuevo cliente</h3>
 
-        <form onSubmit={createClient} style={styles.form}>
+        <form className="loyalty-new-client-form" onSubmit={createClient} style={styles.form}>
           <input
             type="text"
             placeholder="Nombre completo"

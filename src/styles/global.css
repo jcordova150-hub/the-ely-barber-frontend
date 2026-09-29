@@ -1396,3 +1396,66 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     overflow: hidden !important;
   }
 }
+/* =========================================================
+   TARJETA PUBLICA - PREMIOS MOVIL
+   ========================================================= */
+@media (max-width: 600px) {
+  .loyalty-public-prize-gift {
+    display: none !important;
+  }
+
+  .loyalty-public-prize-congrats {
+    font-size: clamp(.30rem, 1.65vw, .48rem) !important;
+    line-height: 1 !important;
+    letter-spacing: 0 !important;
+    margin: 0 0 .12rem !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+
+  .loyalty-public-prize-cut {
+    font-size: clamp(.48rem, 2.4vw, .72rem) !important;
+    line-height: .9 !important;
+    letter-spacing: 0 !important;
+    margin: 0 !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 340px) {
+  .loyalty-public-prize-congrats {
+    font-size: .28rem !important;
+  }
+
+  .loyalty-public-prize-cut {
+    font-size: .43rem !important;
+  }
+}
+
+/* TARJETA PUBLICA - MOSTRAR REGALO COMO ADMIN */
+@media (max-width: 600px) {
+  .loyalty-public-prize-gift {
+    display: block !important;
+    font-size: .48rem !important;
+    line-height: 1 !important;
+    margin: 0 0 .08rem !important;
+    transform: none !important;
+    max-height: 18px !important;
+    overflow: hidden !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+}
+
+/* TARJETA PUBLICA - TAMANO DEL REGALO */
+@media (max-width: 600px) {
+  .loyalty-public-prize-gift {
+    font-size: .85rem !important;
+    line-height: 1 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 0 .08rem !important;
+    transform: none !important;
+  }
+}

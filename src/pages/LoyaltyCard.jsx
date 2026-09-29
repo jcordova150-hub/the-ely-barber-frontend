@@ -101,19 +101,20 @@ export default function LoyaltyCard() {
                   ...styles.stamp,
                   ...(active ? styles.activeStamp : {}),
                   ...(prize ? styles.prizeStamp : {}),
+                  ...(prize && active ? styles.prizeWon : {}),
                 }}
               >
                 {prize ? (
                   <>
-                    <div style={styles.gift}>
+                    <div className="loyalty-public-prize-gift" style={styles.giftIcon}>
                       {"\uD83C\uDF81"}
                     </div>
 
-                    <div style={styles.congrats}>
+                    <div className="loyalty-public-prize-congrats" style={active ? styles.prizeSmallWon : styles.prizeSmall}>
                       {"\u00A1"}FELICIDADES!
                     </div>
 
-                    <div style={styles.freeCut}>
+                    <div className="loyalty-public-prize-cut" style={active ? styles.prizeBigWon : styles.prizeBig}>
                       CORTE
                       <br />
                       GRATIS
@@ -306,6 +307,13 @@ const styles = {
     boxShadow: "0 0 14px rgba(214,169,79,.45)",
   },
 
+  prizeWon: {
+    background: "linear-gradient(135deg, #8b6419 0%, #f5d77a 45%, #d6a94f 70%, #8b6419 100%)",
+    border: "3px solid #f5d77a",
+    boxShadow: "0 0 18px rgba(214,169,79,.85), inset 0 0 12px rgba(255,255,255,.25)",
+    transform: "scale(1.04)",
+  },
+
   stampLogo: {
     width: "82%",
     height: "82%",
@@ -324,33 +332,43 @@ const styles = {
     fontWeight: 900,
   },
 
-  gift: {
-    fontSize: "clamp(1.8rem, 6vw, 3rem)",
+  giftIcon: {
+    fontSize: "2.5rem",
     lineHeight: 1,
-    marginBottom: "0.3rem",
-    filter: "drop-shadow(0 2px 4px rgba(0,0,0,.65))",
-    transform: "scale(1.08)",
+    marginBottom: "0.25rem",
+    filter: "sepia(1) saturate(4) hue-rotate(355deg) drop-shadow(0 2px 3px rgba(0,0,0,.45))",
   },
 
-  congrats: {
+  prizeSmallWon: {
+    fontSize: "0.9rem",
+    display: "block",
+    marginBottom: "0.35rem",
+    letterSpacing: "0.08em",
     color: "#050505",
-    fontSize: "clamp(.55rem, 2vw, .82rem)",
     fontWeight: 900,
-    marginTop: 4,
     textAlign: "center",
-    lineHeight: 1,
-    textShadow: "0 1px 1px rgba(255,255,255,.25)",
   },
 
-  freeCut: {
-    color: "#050505",
-    fontSize: "clamp(.72rem, 2.5vw, 1rem)",
-    fontWeight: 900,
-    marginTop: 6,
+  prizeBigWon: {
+    fontSize: "1rem",
+    textAlign: "center",
     lineHeight: 1.05,
+    marginTop: "0.25rem",
+    color: "#050505",
+    fontWeight: 900,
+    textShadow: "0 1px 0 rgba(255,255,255,.3)",
+  },
+
+  prizeSmall: {
+    fontSize: "0.55rem",
+    letterSpacing: "0.08em",
+  },
+
+  prizeBig: {
+    fontSize: "0.9rem",
     textAlign: "center",
-    letterSpacing: "0.03em",
-    textShadow: "0 1px 1px rgba(255,255,255,.25)",
+    lineHeight: 1.05,
+    marginTop: "0.3rem",
   },
 
   bottomDivider: {

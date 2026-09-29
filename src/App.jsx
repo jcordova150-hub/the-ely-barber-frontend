@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -13,6 +13,7 @@ import AdminServices from "./pages/admin/AdminServices";
 import AdminAppointments from "./pages/admin/AdminAppointments";
 import AdminClients from "./pages/admin/AdminClients";
 import AdminLoyalty from "./pages/admin/AdminLoyalty";
+import LoyaltyCard from "./pages/LoyaltyCard";
 
 function RequireAuth({ children }) {
   const { user } = useAuth();
@@ -26,16 +27,30 @@ function RequireBarber({ children }) {
   return children;
 }
 
+function SiteLayout({ children }) {
+  const location = useLocation();
+  const isPublicLoyaltyCard = location.pathname.startsWith("/fidelidad/");
+
+  return (
+    <>
+      {!isPublicLoyaltyCard && <Navbar />}
+      {children}
+      {!isPublicLoyaltyCard && <Footer />}
+    </>
+  );
+}
+
 function AppRoutes() {
   return (
     <BrowserRouter>
-      <Navbar />
-      <Routes>
+      <SiteLayout>
+        <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/barbero" element={<BarberLogin />} />
         <Route path="/mis-citas" element={<RequireBarber><BarberAppointments /></RequireBarber>} />
         <Route path="/reservar" element={<Booking />} />
+        <Route path="/fidelidad/:publicCode" element={<LoyaltyCard />} />
         <Route
           path="/admin"
           element={
@@ -51,8 +66,8 @@ function AppRoutes() {
           <Route path="clientes" element={<AdminClients />} />
           <Route path="fidelidad" element={<AdminLoyalty />} />
         </Route>
-      </Routes>
-      <Footer />
+        </Routes>
+      </SiteLayout>
     </BrowserRouter>
   );
 }

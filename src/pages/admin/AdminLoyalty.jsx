@@ -751,8 +751,7 @@ const styles = {
     fontSize: "2.5rem",
     lineHeight: 1,
     marginBottom: "0.25rem",
-    filter: "drop-shadow(0 2px 3px rgba(0,0,0,.45))",
-    filter: "sepia(1) saturate(4) hue-rotate(355deg)",
+    filter: "sepia(1) saturate(4) hue-rotate(355deg) drop-shadow(0 2px 3px rgba(0,0,0,.45))",
   },
 
   prizeWon: {

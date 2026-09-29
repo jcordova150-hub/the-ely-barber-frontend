@@ -100,6 +100,22 @@ export default function AdminLoyalty() {
       setSelectedId(created._id);
       setForm({ name: "", phone: "", stampsGoal: 10 });
       setMessage(`Tarjeta creada para ${created.name}.`);
+
+      const digits = String(created.phone || form.phone || "").replace(/\D/g, "");
+      const whatsappPhone = digits.startsWith("52") ? digits : `52${digits}`;
+      const cardUrl = publicUrl(created);
+
+      const whatsappMessage =
+        `Hola ${created.name} 👋\n\n` +
+        `Gracias por ser cliente de The Ely Barber. 💈\n\n` +
+        `Aquí tienes tu tarjeta de fidelidad personal:\n${cardUrl}\n\n` +
+        `Presenta tu tarjeta en cada visita para acumular tus sellos y obtener tus premios. 🎁`;
+
+      window.open(
+        `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(whatsappMessage)}`,
+        "_blank",
+        "noopener,noreferrer"
+      );
     } catch (e) {
       setError(e.message);
     } finally {

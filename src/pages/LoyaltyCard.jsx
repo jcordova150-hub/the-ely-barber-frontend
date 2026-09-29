@@ -126,7 +126,7 @@ export default function LoyaltyCard() {
                     style={styles.stampLogo}
                   />
                 ) : (
-                  <span style={styles.number}>{number}</span>
+                  <span />
                 )}
               </div>
             );

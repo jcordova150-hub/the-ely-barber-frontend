@@ -1,3 +1,4 @@
+import { FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../api";
@@ -164,7 +165,7 @@ export default function LoyaltyCard() {
             rel="noopener noreferrer"
             style={styles.contactButton}
           >
-            FACEBOOK
+            <FaFacebookF size={24} aria-hidden="true" />
           </a>
 
           <a
@@ -173,7 +174,7 @@ export default function LoyaltyCard() {
             rel="noopener noreferrer"
             style={styles.contactButton}
           >
-            INSTAGRAM
+            <FaInstagram size={24} aria-hidden="true" />
           </a>
 
           <a
@@ -182,7 +183,7 @@ export default function LoyaltyCard() {
             rel="noopener noreferrer"
             style={styles.contactButton}
           >
-            TIKTOK
+            <FaTiktok size={24} aria-hidden="true" />
           </a>
 
           <a

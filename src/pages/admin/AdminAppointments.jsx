@@ -67,7 +67,36 @@ export default function AdminAppointments() {
     }
   };
 
-  const handleStatusChange = (id, status) => run(() => api.setAppointmentStatus(id, status, user.token));
+  const handleStatusChange = (id, status) => {
+    const appointment = appointments.find((a) => a._id === id);
+
+    if (status === "completada") {
+      const hasTotalCommission = (appointment?.services || []).some(
+        (service) => service.commissionType === "total"
+      );
+
+      if (hasTotalCommission) {
+        const value = prompt(
+          "¿Cuánto se cobró realmente por el servicio con comisión del 100%?"
+        );
+
+        if (value === null) return;
+
+        const chargedAmount = Number(value);
+
+        if (!Number.isFinite(chargedAmount) || chargedAmount < 0) {
+          alert("Ingresa un importe válido.");
+          return;
+        }
+
+        return run(() =>
+          api.setAppointmentStatus(id, status, user.token, chargedAmount)
+        );
+      }
+    }
+
+    return run(() => api.setAppointmentStatus(id, status, user.token));
+  };
 
   const handleDelete = (id) => {
     if (!confirm("¿Eliminar esta cita PERMANENTEMENTE? Esta acción no se puede deshacer.")) return;

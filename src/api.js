@@ -36,7 +36,15 @@ export const api = {
   createAppointment: (body) => request("/appointments", { method: "POST", body }),
   getAllAppointments: (token, date) => request(`/appointments${date ? `?date=${date}` : ""}`, { token }),
   cancelAppointment: (id, token) => request(`/appointments/${id}/cancel`, { method: "PUT", token }),
-  setAppointmentStatus: (id, status, token) => request(`/appointments/${id}/status`, { method: "PUT", body: { status }, token }),
+  setAppointmentStatus: (id, status, token, chargedAmount) =>
+    request(`/appointments/${id}/status`, {
+      method: "PUT",
+      body: {
+        status,
+        ...(chargedAmount !== undefined ? { chargedAmount } : {}),
+      },
+      token,
+    }),
   updateAppointmentServices: (id, services, token) => request(`/appointments/${id}/services`, { method: "PUT", body: { services }, token }),
   rescheduleAppointment: (id, body, token) => request(`/appointments/${id}/reschedule`, { method: "PUT", body, token }),
   deleteAppointment: (id, token) => request(`/appointments/${id}`, { method: "DELETE", token }),

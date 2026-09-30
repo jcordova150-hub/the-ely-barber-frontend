@@ -2,7 +2,15 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { api } from "../../api";
 
-const emptyForm = { name: "", description: "", price: "", type: "servicio", durationMinutes: 30 };
+const emptyForm = {
+  name: "",
+  description: "",
+  price: "",
+  type: "servicio",
+  durationMinutes: 30,
+  commission: "",
+  commissionType: "fija",
+};
 
 export default function AdminServices() {
   const { user } = useAuth();
@@ -21,7 +29,13 @@ export default function AdminServices() {
     setError("");
     try {
       await api.createService(
-        { ...form, price: Number(form.price), durationMinutes: Number(form.durationMinutes) },
+        {
+          ...form,
+          price: Number(form.price),
+          durationMinutes: Number(form.durationMinutes),
+          commission: form.commissionType === "total" ? 0 : Number(form.commission || 0),
+          commissionType: form.commissionType,
+        },
         user.token
       );
       setForm(emptyForm);
@@ -41,6 +55,8 @@ export default function AdminServices() {
       price: String(item.price),
       type: item.type,
       durationMinutes: item.durationMinutes || 30,
+      commission: String(item.commission || 0),
+      commissionType: item.commissionType || "fija",
     });
   };
 
@@ -52,6 +68,8 @@ export default function AdminServices() {
         name: editForm.name.trim(),
         description: editForm.description.trim(),
         price: Number(editForm.price),
+        commission: editForm.commissionType === "total" ? 0 : Number(editForm.commission || 0),
+        commissionType: editForm.commissionType,
       };
       if (editForm.type === "servicio") body.durationMinutes = Number(editForm.durationMinutes);
       await api.updateService(editingId, body, user.token);
@@ -69,13 +87,15 @@ export default function AdminServices() {
   };
 
   const exportCsv = () => {
-    const header = "Nombre,Tipo,Precio,Duracion(min)\n";
-    const rows = items.map((i) => `${i.name},${i.type},${i.price},${i.durationMinutes || ""}`).join("\n");
+    const header = "Nombre,Tipo,Precio,Duracion(min),TipoComision,Comision\n";
+    const rows = items.map((i) =>
+      `${i.name},${i.type},${i.price},${i.durationMinutes || ""},${i.commissionType || "fija"},${i.commissionType === "total" ? "100%" : Number(i.commission || 0)}`
+    ).join("\n");
     const blob = new Blob([header + rows], { type: "text/csv" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "articulos-the-block-barber.csv";
+    a.download = "articulos-the-ely-barber.csv";
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -104,6 +124,36 @@ export default function AdminServices() {
             <label htmlFor="iprice">Precio</label>
             <input id="iprice" type="number" step="0.01" required value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} />
           </div>
+
+          <div className="field">
+            <label htmlFor="icommissionType">Tipo de comisión</label>
+            <select
+              id="icommissionType"
+              value={form.commissionType}
+              onChange={(e) =>
+                setForm({ ...form, commissionType: e.target.value })
+              }
+            >
+              <option value="fija">Comisión fija</option>
+              <option value="total">100% del importe</option>
+            </select>
+          </div>
+
+          {form.commissionType === "fija" && (
+            <div className="field">
+              <label htmlFor="icommission">Comisión del barbero</label>
+              <input
+                id="icommission"
+                type="number"
+                min="0"
+                step="0.01"
+                value={form.commission}
+                onChange={(e) =>
+                  setForm({ ...form, commission: e.target.value })
+                }
+              />
+            </div>
+          )}
           {form.type === "servicio" && (
             <div className="field">
               <label htmlFor="idur">Duración (minutos)</label>
@@ -137,6 +187,42 @@ export default function AdminServices() {
                     <label htmlFor="eprice">Precio</label>
                     <input id="eprice" type="number" step="0.01" required value={editForm.price} onChange={(e) => setEditForm({ ...editForm, price: e.target.value })} />
                   </div>
+
+                  <div className="field" style={{ flex: "1 1 160px" }}>
+                    <label htmlFor="ecommissionType">Tipo de comisión</label>
+                    <select
+                      id="ecommissionType"
+                      value={editForm.commissionType}
+                      onChange={(e) =>
+                        setEditForm({
+                          ...editForm,
+                          commissionType: e.target.value,
+                        })
+                      }
+                    >
+                      <option value="fija">Comisión fija</option>
+                      <option value="total">100% del importe</option>
+                    </select>
+                  </div>
+
+                  {editForm.commissionType === "fija" && (
+                    <div className="field" style={{ flex: "1 1 140px" }}>
+                      <label htmlFor="ecommission">Comisión del barbero</label>
+                      <input
+                        id="ecommission"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value={editForm.commission}
+                        onChange={(e) =>
+                          setEditForm({
+                            ...editForm,
+                            commission: e.target.value,
+                          })
+                        }
+                      />
+                    </div>
+                  )}
                   {editForm.type === "servicio" && (
                     <div className="field" style={{ flex: "1 1 120px" }}>
                       <label htmlFor="edur">Duración (minutos)</label>
@@ -157,6 +243,11 @@ export default function AdminServices() {
                   {i.description && <div style={{ color: "var(--muted)", fontSize: "0.8rem" }}>{i.description}</div>}
                   <div style={{ color: "var(--muted)", fontSize: "0.8rem", textTransform: "capitalize" }}>
                     {i.type}{i.type === "servicio" ? ` · ${i.durationMinutes} min` : ""}
+                  </div>
+                  <div style={{ color: "var(--gold-bright)", fontSize: "0.8rem" }}>
+                    Comisión: {i.commissionType === "total"
+                      ? "100% del importe"
+                      : `$${Number(i.commission || 0).toFixed(2)}`}
                   </div>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>

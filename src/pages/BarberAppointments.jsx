@@ -58,6 +58,24 @@ export default function BarberAppointments() {
 
   const shownDays = selected === "semana" ? weekDays : [selected]; // "Ver toda la semana" incluye también los días ya pasados
 
+  const shownAppointments = shownDays.flatMap((d) => byDate[d] || []);
+
+  const completedAppointments = shownAppointments.filter(
+    (a) => a.status === "completada"
+  );
+
+  const completedCuts = completedAppointments.length;
+
+  const totalSales = completedAppointments.reduce(
+    (sum, a) => sum + Number(a.total || 0),
+    0
+  );
+
+  const totalCommission = completedAppointments.reduce(
+    (sum, a) => sum + Number(a.commissionTotal || 0),
+    0
+  );
+
   const renderDay = (d) => (
     <section key={d} style={{ marginBottom: "1.75rem" }}>
       <h3 style={{ fontFamily: "var(--font-display)", color: d === today ? "var(--gold-bright)" : "var(--cream)", marginBottom: ".75rem" }}>
@@ -71,6 +89,21 @@ export default function BarberAppointments() {
               <strong>{a.guestName || a.client?.name || "Cliente"}</strong>
               <div style={{ color: "var(--muted)" }}>{(a.services || []).map((s) => s.name).join(" + ")}</div>
               <div style={{ color: "var(--muted)", fontSize: ".8rem", textTransform: "capitalize", marginTop: ".15rem" }}>{a.status || "pendiente"}</div>
+
+              {a.status === "completada" && (
+                <div
+                  style={{
+                    color: "var(--gold-bright)",
+                    fontSize: ".85rem",
+                    marginTop: ".35rem",
+                    fontWeight: 600,
+                  }}
+                >
+                  Venta: ${Number(a.total || 0).toFixed(2)}
+                  {" · "}
+                  Mi comisión: ${Number(a.commissionTotal || 0).toFixed(2)}
+                </div>
+              )}
             </div>
           </div>
         ))}
@@ -146,6 +179,66 @@ export default function BarberAppointments() {
 
       {error && <p className="error-text">{error}</p>}
       {loading && <p>Cargando...</p>}
+
+      {!loading && !error && (
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+            gap: ".8rem",
+            marginBottom: "1.75rem",
+          }}
+        >
+          <div className="panel" style={{ padding: "1rem", textAlign: "center" }}>
+            <div style={{ color: "var(--muted)", fontSize: ".8rem" }}>
+              Citas completadas
+            </div>
+            <strong
+              style={{
+                display: "block",
+                color: "var(--gold-bright)",
+                fontSize: "1.5rem",
+                marginTop: ".25rem",
+              }}
+            >
+              {completedCuts}
+            </strong>
+          </div>
+
+          <div className="panel" style={{ padding: "1rem", textAlign: "center" }}>
+            <div style={{ color: "var(--muted)", fontSize: ".8rem" }}>
+              Ventas
+            </div>
+            <strong
+              style={{
+                display: "block",
+                color: "var(--gold-bright)",
+                fontSize: "1.5rem",
+                marginTop: ".25rem",
+              }}
+            >
+              ${totalSales.toFixed(2)}
+            </strong>
+          </div>
+
+          <div className="panel" style={{ padding: "1rem", textAlign: "center" }}>
+            <div style={{ color: "var(--muted)", fontSize: ".8rem" }}>
+              Mi comisión
+            </div>
+            <strong
+              style={{
+                display: "block",
+                color: "var(--gold-bright)",
+                fontSize: "1.5rem",
+                marginTop: ".25rem",
+              }}
+            >
+              ${totalCommission.toFixed(2)}
+            </strong>
+          </div>
+        </div>
+      )}
+
       {shownDays.map(renderDay)}
     </div>
   );

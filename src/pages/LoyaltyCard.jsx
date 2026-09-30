@@ -161,6 +161,24 @@ export default function LoyaltyCard() {
           </a>
 
           <a
+            href="https://www.instagram.com/theelybarber?stkn=a3VqaTYwY2VzMmZ1"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={styles.contactButton}
+          >
+            INSTAGRAM
+          </a>
+
+          <a
+            href="https://www.tiktok.com/@the.ely.barber"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={styles.contactButton}
+          >
+            TIKTOK
+          </a>
+
+          <a
             href="https://maps.app.goo.gl/esfKmrFpyt562YeV7"
             target="_blank"
             rel="noopener noreferrer"

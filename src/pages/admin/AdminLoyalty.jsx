@@ -252,6 +252,51 @@ export default function AdminLoyalty() {
       {error && <div style={styles.error}>{error}</div>}
       {message && <div style={styles.message}>{message}</div>}
 
+      <section className="loyalty-new-client" style={styles.newClient}>
+        <h3 style={styles.newTitle}>Registrar nuevo cliente</h3>
+
+        <form className="loyalty-new-client-form" onSubmit={createClient} style={styles.form}>
+          <input
+            type="text"
+            placeholder="Nombre completo"
+            value={form.name}
+            onChange={(e) =>
+              setForm({ ...form, name: e.target.value })
+            }
+            required
+          />
+
+          <input
+            type="tel"
+            placeholder={"Tel\u00E9fono"}
+            value={form.phone}
+            onChange={(e) =>
+              setForm({ ...form, phone: e.target.value })
+            }
+            required
+          />
+
+          <input
+            type="number"
+            min="1"
+            value={form.stampsGoal}
+            title="Visitas necesarias para completar la tarjeta"
+            onChange={(e) =>
+              setForm({ ...form, stampsGoal: e.target.value })
+            }
+            required
+          />
+
+          <button
+            type="submit"
+            disabled={working}
+            style={styles.createButton}
+          >
+            REGISTRAR CLIENTE
+          </button>
+        </form>
+      </section>
+
       <div className="loyalty-admin-layout" style={styles.layout}>
         <aside className="loyalty-admin-sidebar" style={styles.sidebar}>
           <h3 style={styles.sideTitle}>Clientes</h3>
@@ -480,50 +525,7 @@ export default function AdminLoyalty() {
         </main>
       </div>
 
-      <section className="loyalty-new-client" style={styles.newClient}>
-        <h3 style={styles.newTitle}>Registrar nuevo cliente</h3>
 
-        <form className="loyalty-new-client-form" onSubmit={createClient} style={styles.form}>
-          <input
-            type="text"
-            placeholder="Nombre completo"
-            value={form.name}
-            onChange={(e) =>
-              setForm({ ...form, name: e.target.value })
-            }
-            required
-          />
-
-          <input
-            type="tel"
-            placeholder={"Tel\u00E9fono"}
-            value={form.phone}
-            onChange={(e) =>
-              setForm({ ...form, phone: e.target.value })
-            }
-            required
-          />
-
-          <input
-            type="number"
-            min="1"
-            value={form.stampsGoal}
-            title="Visitas necesarias para completar la tarjeta"
-            onChange={(e) =>
-              setForm({ ...form, stampsGoal: e.target.value })
-            }
-            required
-          />
-
-          <button
-            type="submit"
-            disabled={working}
-            style={styles.createButton}
-          >
-            REGISTRAR CLIENTE
-          </button>
-        </form>
-      </section>
     </div>
   );
 }

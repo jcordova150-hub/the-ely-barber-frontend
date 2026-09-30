@@ -499,15 +499,6 @@ export default function AdminLoyalty() {
               </div>
 
               <div className="loyalty-link-box" style={styles.linkBox}>
-                <div style={{ flex: 1 }}>
-                  <strong style={styles.linkTitle}>
-                    Enlace personal de la tarjeta
-                  </strong>
-                  <div style={styles.linkText}>
-                    {publicUrl(selected)}
-                  </div>
-                </div>
-
                 <button
                   type="button"
                   onClick={copyLink}

@@ -152,12 +152,19 @@ export default function LoyaltyCard() {
 
         <div style={styles.contactButtons}>
           <a
-            href="https://wa.me/525660534952"
+            href="/reservar"
+            style={styles.contactButton}
+          >
+            AGENDAR CITA
+          </a>
+
+          <a
+            href="https://www.facebook.com/share/1DhvofmE42/"
             target="_blank"
             rel="noopener noreferrer"
             style={styles.contactButton}
           >
-            WHATSAPP
+            FACEBOOK
           </a>
 
           <a
@@ -170,7 +177,7 @@ export default function LoyaltyCard() {
           </a>
 
           <a
-            href="https://www.tiktok.com/@the.ely.barber"
+            href="https://www.tiktok.com/@the.ely.barber?_r=1&_t=ZS-99vuZs997i9"
             target="_blank"
             rel="noopener noreferrer"
             style={styles.contactButton}

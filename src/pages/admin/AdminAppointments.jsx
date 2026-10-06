@@ -26,6 +26,15 @@ export default function AdminAppointments() {
   const [editingServicesId, setEditingServicesId] = useState(null);
   const [editServiceIds, setEditServiceIds] = useState([]);
 
+  // Datos de cobro por cita
+  const [paymentMethods, setPaymentMethods] = useState({});
+  const [tipAmounts, setTipAmounts] = useState({});
+  const [tipMethods, setTipMethods] = useState({});
+  const [priceAdjustmentTypes, setPriceAdjustmentTypes] = useState({});
+  const [discountPercents, setDiscountPercents] = useState({});
+  const [refundFinalPrices, setRefundFinalPrices] = useState({});
+  const [refundFinalCommissions, setRefundFinalCommissions] = useState({});
+
   const isToday = date === todayStr();
 
   // Carga las citas del día elegido (el servidor solo devuelve ese día)
@@ -70,34 +79,159 @@ export default function AdminAppointments() {
   const handleStatusChange = (id, status) => {
     const appointment = appointments.find((a) => a._id === id);
 
-    if (status === "completada") {
-      const hasTotalCommission = (appointment?.services || []).some(
-        (service) => service.commissionType === "total"
+    if (status !== "completada") {
+      return run(() =>
+        api.setAppointmentStatus(id, status, user.token)
       );
+    }
 
-      if (hasTotalCommission) {
-        const value = prompt(
-          "¿Cuánto se cobró realmente por el servicio con comisión del 100%?"
-        );
+    const adjustmentType =
+      priceAdjustmentTypes[id] ||
+      appointment?.priceAdjustmentType ||
+      "normal";
 
-        if (value === null) return;
+    const paymentMethod =
+      paymentMethods[id] ||
+      appointment?.paymentMethod ||
+      "";
 
-        const chargedAmount = Number(value);
+    const tipAmount = Number(
+      tipAmounts[id] ?? appointment?.tipAmount ?? 0
+    );
 
-        if (!Number.isFinite(chargedAmount) || chargedAmount < 0) {
-          alert("Ingresa un importe válido.");
-          return;
-        }
+    const tipMethod =
+      tipMethods[id] ||
+      appointment?.tipMethod ||
+      "";
 
-        return run(() =>
-          api.setAppointmentStatus(id, status, user.token, chargedAmount)
-        );
+    if (!Number.isFinite(tipAmount) || tipAmount < 0) {
+      alert("Ingresa una propina válida.");
+      return;
+    }
+
+    if (
+      tipAmount > 0 &&
+      !["efectivo", "digital"].includes(tipMethod)
+    ) {
+      alert("Selecciona cómo se recibió la propina.");
+      return;
+    }
+
+    let discountPercent = 0;
+    let refundFinalPrice;
+    let refundFinalCommission;
+
+    if (adjustmentType === "porcentaje") {
+      if (
+        discountPercents[id] === undefined ||
+        String(discountPercents[id]).trim() === ""
+      ) {
+        alert("Ingresa el porcentaje de descuento.");
+        return;
+      }
+
+      discountPercent = Number(discountPercents[id]);
+
+      if (
+        !Number.isFinite(discountPercent) ||
+        discountPercent < 0 ||
+        discountPercent > 100
+      ) {
+        alert("El descuento debe estar entre 0% y 100%.");
+        return;
       }
     }
 
-    return run(() => api.setAppointmentStatus(id, status, user.token));
-  };
+    if (adjustmentType === "devolucion") {
+      if (
+        refundFinalPrices[id] === undefined ||
+        String(refundFinalPrices[id]).trim() === ""
+      ) {
+        alert("Ingresa el nuevo precio final.");
+        return;
+      }
 
+      if (
+        refundFinalCommissions[id] === undefined ||
+        String(refundFinalCommissions[id]).trim() === ""
+      ) {
+        alert("Ingresa la nueva comisión.");
+        return;
+      }
+
+      refundFinalPrice = Number(refundFinalPrices[id]);
+      refundFinalCommission = Number(refundFinalCommissions[id]);
+
+      if (
+        !Number.isFinite(refundFinalPrice) ||
+        refundFinalPrice < 0
+      ) {
+        alert("Ingresa un precio final válido.");
+        return;
+      }
+
+      if (
+        !Number.isFinite(refundFinalCommission) ||
+        refundFinalCommission < 0
+      ) {
+        alert("Ingresa una comisión final válida.");
+        return;
+      }
+    }
+
+    const isFree =
+      adjustmentType === "gratis" ||
+      adjustmentType === "cumpleanos";
+
+    if (!isFree && !["efectivo", "tarjeta", "transferencia"].includes(paymentMethod)) {
+      alert("Selecciona el método de pago.");
+      return;
+    }
+
+    if (
+      isFree &&
+      tipAmount > 0 &&
+      tipMethod === "digital" &&
+      !["tarjeta", "transferencia"].includes(paymentMethod)
+    ) {
+      alert("Para una propina digital selecciona tarjeta o transferencia.");
+      return;
+    }
+
+    let chargedAmount;
+
+    const hasTotalCommission = (appointment?.services || []).some(
+      (service) => service.commissionType === "total"
+    );
+
+    if (hasTotalCommission) {
+      const value = prompt(
+        "¿Cuál es el importe base del servicio con comisión del 100%? El descuento no reducirá la comisión del barbero."
+      );
+
+      if (value === null) return;
+
+      chargedAmount = Number(value);
+
+      if (!Number.isFinite(chargedAmount) || chargedAmount < 0) {
+        alert("Ingresa un importe válido.");
+        return;
+      }
+    }
+
+    return run(() =>
+      api.setAppointmentStatus(id, status, user.token, {
+        chargedAmount,
+        paymentMethod: paymentMethod || undefined,
+        tipAmount,
+        tipMethod: tipAmount > 0 ? tipMethod : undefined,
+        priceAdjustmentType: adjustmentType,
+        discountPercent,
+        refundFinalPrice,
+        refundFinalCommission,
+      })
+    );
+  };
   const handleDelete = (id) => {
     if (!confirm("¿Eliminar esta cita PERMANENTEMENTE? Esta acción no se puede deshacer.")) return;
     run(() => api.deleteAppointment(id, user.token));
@@ -286,6 +420,168 @@ export default function AdminAppointments() {
                       <option key={val} value={val}>{label}</option>
                     ))}
                   </select>
+
+                  {a.status !== "completada" && (
+                    <div
+                      style={{
+                        marginTop: "0.75rem",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "0.5rem",
+                        minWidth: "210px",
+                      }}
+                    >
+                      <select
+                        value={
+                          priceAdjustmentTypes[a._id] ||
+                          a.priceAdjustmentType ||
+                          "normal"
+                        }
+                        onChange={(e) =>
+                          setPriceAdjustmentTypes((prev) => ({
+                            ...prev,
+                            [a._id]: e.target.value,
+                          }))
+                        }
+                      >
+                        <option value="normal">Normal</option>
+                        <option value="porcentaje">Descuento %</option>
+                        <option value="gratis">Corte gratis 100%</option>
+                        <option value="cumpleanos">Cumpleaños 100%</option>
+                        <option value="devolucion">Devolución</option>
+                      </select>
+
+                      {(priceAdjustmentTypes[a._id] ||
+                        a.priceAdjustmentType ||
+                        "normal") === "porcentaje" && (
+                        <input
+                          type="number"
+                          min="0"
+                          max="100"
+                          step="1"
+                          placeholder="Descuento %"
+                          value={discountPercents[a._id] ?? ""}
+                          onChange={(e) =>
+                            setDiscountPercents((prev) => ({
+                              ...prev,
+                              [a._id]: e.target.value,
+                            }))
+                          }
+                        />
+                      )}
+
+                      {(priceAdjustmentTypes[a._id] ||
+                        a.priceAdjustmentType ||
+                        "normal") === "devolucion" && (
+                        <>
+                          <input
+                            type="number"
+                            min="0"
+                            step="0.01"
+                            placeholder="Nuevo precio final"
+                            value={refundFinalPrices[a._id] ?? ""}
+                            onChange={(e) =>
+                              setRefundFinalPrices((prev) => ({
+                                ...prev,
+                                [a._id]: e.target.value,
+                              }))
+                            }
+                          />
+
+                          <input
+                            type="number"
+                            min="0"
+                            step="0.01"
+                            placeholder="Nueva comisión"
+                            value={refundFinalCommissions[a._id] ?? ""}
+                            onChange={(e) =>
+                              setRefundFinalCommissions((prev) => ({
+                                ...prev,
+                                [a._id]: e.target.value,
+                              }))
+                            }
+                          />
+                        </>
+                      )}
+
+                      <select
+                        value={
+                          paymentMethods[a._id] ||
+                          a.paymentMethod ||
+                          ""
+                        }
+                        onChange={(e) =>
+                          setPaymentMethods((prev) => ({
+                            ...prev,
+                            [a._id]: e.target.value,
+                          }))
+                        }
+                      >
+                        <option value="">Método de pago</option>
+                        <option value="efectivo">Efectivo</option>
+                        <option value="tarjeta">Tarjeta</option>
+                        <option value="transferencia">Transferencia</option>
+                      </select>
+
+                      <input
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        placeholder="Propina"
+                        value={tipAmounts[a._id] ?? ""}
+                        onChange={(e) =>
+                          setTipAmounts((prev) => ({
+                            ...prev,
+                            [a._id]: e.target.value,
+                          }))
+                        }
+                      />
+
+                      {Number(tipAmounts[a._id] || 0) > 0 && (
+                        <select
+                          value={tipMethods[a._id] || ""}
+                          onChange={(e) =>
+                            setTipMethods((prev) => ({
+                              ...prev,
+                              [a._id]: e.target.value,
+                            }))
+                          }
+                        >
+                          <option value="">Forma de propina</option>
+                          <option value="efectivo">Efectivo</option>
+                          <option value="digital">Digital</option>
+                        </select>
+                      )}
+
+                      {["gratis", "cumpleanos"].includes(
+                        priceAdjustmentTypes[a._id] ||
+                          a.priceAdjustmentType ||
+                          "normal"
+                      ) && (
+                        <div
+                          style={{
+                            fontSize: "0.75rem",
+                            color: "var(--muted)",
+                          }}
+                        >
+                          Cliente paga $0. La comisión del barbero se conserva completa.
+                        </div>
+                      )}
+
+                      {(priceAdjustmentTypes[a._id] ||
+                        a.priceAdjustmentType ||
+                        "normal") === "porcentaje" && (
+                        <div
+                          style={{
+                            fontSize: "0.75rem",
+                            color: "var(--muted)",
+                          }}
+                        >
+                          El descuento reduce el cobro al cliente, no la comisión del barbero.
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </td>
                 <td data-label="Acciones" style={styles.td}>
                   <div style={{ display: "flex", gap: "0.5rem" }}>

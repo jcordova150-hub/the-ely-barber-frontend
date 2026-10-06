@@ -13,6 +13,7 @@ import AdminServices from "./pages/admin/AdminServices";
 import AdminAppointments from "./pages/admin/AdminAppointments";
 import AdminClients from "./pages/admin/AdminClients";
 import AdminLoyalty from "./pages/admin/AdminLoyalty";
+import AdminFinance from "./pages/admin/AdminFinance";
 import LoyaltyCard from "./pages/LoyaltyCard";
 
 function RequireAuth({ children }) {
@@ -65,6 +66,7 @@ function AppRoutes() {
           <Route path="articulos" element={<AdminServices />} />
           <Route path="clientes" element={<AdminClients />} />
           <Route path="fidelidad" element={<AdminLoyalty />} />
+          <Route path="finanzas" element={<AdminFinance />} />
         </Route>
         </Routes>
       </SiteLayout>

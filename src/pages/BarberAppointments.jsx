@@ -76,6 +76,12 @@ export default function BarberAppointments() {
     0
   );
 
+  const totalTips = completedAppointments.reduce(
+    (sum, a) =>
+      sum + Number(a.tipNetAmount ?? a.tipAmount ?? 0),
+    0
+  );
+
   const renderDay = (d) => (
     <section key={d} style={{ marginBottom: "1.75rem" }}>
       <h3 style={{ fontFamily: "var(--font-display)", color: d === today ? "var(--gold-bright)" : "var(--cream)", marginBottom: ".75rem" }}>
@@ -102,6 +108,8 @@ export default function BarberAppointments() {
                   Venta: ${Number(a.total || 0).toFixed(2)}
                   {" · "}
                   Mi comisión: ${Number(a.commissionTotal || 0).toFixed(2)}
+                  {" · "}
+                  Mi propina: ${Number(a.tipNetAmount ?? a.tipAmount ?? 0).toFixed(2)}
                 </div>
               )}
             </div>
@@ -234,6 +242,22 @@ export default function BarberAppointments() {
               }}
             >
               ${totalCommission.toFixed(2)}
+            </strong>
+          </div>
+
+          <div className="panel" style={{ padding: "1rem", textAlign: "center" }}>
+            <div style={{ color: "var(--muted)", fontSize: ".8rem" }}>
+              Mis propinas
+            </div>
+            <strong
+              style={{
+                display: "block",
+                color: "var(--gold-bright)",
+                fontSize: "1.5rem",
+                marginTop: ".25rem",
+              }}
+            >
+              ${totalTips.toFixed(2)}
             </strong>
           </div>
         </div>

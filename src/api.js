@@ -36,12 +36,12 @@ export const api = {
   createAppointment: (body) => request("/appointments", { method: "POST", body }),
   getAllAppointments: (token, date) => request(`/appointments${date ? `?date=${date}` : ""}`, { token }),
   cancelAppointment: (id, token) => request(`/appointments/${id}/cancel`, { method: "PUT", token }),
-  setAppointmentStatus: (id, status, token, chargedAmount) =>
+  setAppointmentStatus: (id, status, token, paymentData = {}) =>
     request(`/appointments/${id}/status`, {
       method: "PUT",
       body: {
         status,
-        ...(chargedAmount !== undefined ? { chargedAmount } : {}),
+        ...paymentData,
       },
       token,
     }),
@@ -53,6 +53,28 @@ export const api = {
   getMyAppointments: (token) => request("/appointments/my", { token }),
 
   getClients: (token) => request("/clients", { token }),
+
+  // Finanzas
+  getFinances: (date, token) =>
+    request(`/finances?date=${encodeURIComponent(date)}`, { token }),
+
+  getProductSales: (date, token) =>
+    request(`/product-sales${date ? `?date=${encodeURIComponent(date)}` : ""}`, { token }),
+
+  createProductSale: (body, token) =>
+    request("/product-sales", { method: "POST", body, token }),
+
+  getFinanceSettings: (token) =>
+    request("/finances/settings", { token }),
+
+  updateFinanceSettings: (body, token) =>
+    request("/finances/settings", { method: "PUT", body, token }),
+
+  createFinanceMovement: (body, token) =>
+    request("/finances/movements", { method: "POST", body, token }),
+
+  createFinanceCutoff: (body, token) =>
+    request("/finances/cutoff", { method: "POST", body, token }),
 
   // Fidelidad
   getLoyaltyClients: (token) =>

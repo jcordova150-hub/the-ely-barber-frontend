@@ -11,6 +11,7 @@ export default function AdminLayout() {
         <NavLink to="/admin/clientes" style={({ isActive }) => tabStyle(isActive)}>Clientes</NavLink>
         <NavLink to="/admin/fidelidad" style={({ isActive }) => tabStyle(isActive)}>Fidelidad</NavLink>
         <NavLink to="/admin/finanzas" style={({ isActive }) => tabStyle(isActive)}>Finanzas</NavLink>
+        <NavLink to="/admin/horario" style={({ isActive }) => tabStyle(isActive)}>Horario</NavLink>
       </div>
       <Outlet />
     </div>

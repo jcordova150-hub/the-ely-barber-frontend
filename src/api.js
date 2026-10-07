@@ -76,6 +76,14 @@ export const api = {
   createFinanceCutoff: (body, token) =>
     request("/finances/cutoff", { method: "POST", body, token }),
 
+  // Horario publico del negocio
+  getBusinessSettings: () =>
+    request("/business-settings"),
+
+  updateBusinessSettings: (body, token) =>
+    request("/business-settings", { method: "PUT", body, token }),
+
+
   // Fidelidad
   getLoyaltyClients: (token) =>
     request("/loyalty", { token }),

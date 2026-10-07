@@ -14,6 +14,7 @@ import AdminAppointments from "./pages/admin/AdminAppointments";
 import AdminClients from "./pages/admin/AdminClients";
 import AdminLoyalty from "./pages/admin/AdminLoyalty";
 import AdminFinance from "./pages/admin/AdminFinance";
+import AdminBusinessHours from "./pages/admin/AdminBusinessHours";
 import LoyaltyCard from "./pages/LoyaltyCard";
 
 function RequireAuth({ children }) {
@@ -67,6 +68,7 @@ function AppRoutes() {
           <Route path="clientes" element={<AdminClients />} />
           <Route path="fidelidad" element={<AdminLoyalty />} />
           <Route path="finanzas" element={<AdminFinance />} />
+          <Route path="horario" element={<AdminBusinessHours />} />
         </Route>
         </Routes>
       </SiteLayout>

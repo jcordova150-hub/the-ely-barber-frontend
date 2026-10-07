@@ -128,10 +128,6 @@ export default function AdminFinance() {
       return;
     }
 
-    if (!productBarberId) {
-      alert("Selecciona el barbero que realizó la venta.");
-      return;
-    }
 
     if (!Number.isInteger(quantity) || quantity <= 0) {
       alert("Ingresa una cantidad válida.");
@@ -577,7 +573,7 @@ Importe: ${money(amount)}`
                 onChange={(e) => setProductBarberId(e.target.value)}
                 style={styles.transferInput}
               >
-                <option value="">Barbero que realizó la venta</option>
+                <option value="">Mostrador</option>
                 {barbers.map((barber) => (
                   <option key={barber._id} value={barber._id}>
                     {barber.name}
@@ -635,7 +631,7 @@ Importe: ${money(amount)}`
             })()}
 
             <div style={styles.transferHelp}>
-              La venta se registrará a nombre del barbero seleccionado y se
+              Selecciona Mostrador para una venta sin comisión de barbero, o selecciona un barbero para asignarle la venta. Se
               integrará automáticamente a Finanzas.
             </div>
           </div>
@@ -691,7 +687,7 @@ Importe: ${money(amount)}`
                       {sale.productName || sale.product?.name || "Producto"}
                     </td>
                     <td style={styles.td}>
-                      {sale.barber?.name || "Sin barbero"}
+                      {sale.barber?.name || "Mostrador"}
                     </td>
                     <td style={styles.td}>{sale.quantity}</td>
                     <td style={styles.td}>{money(sale.unitPrice)}</td>
@@ -740,7 +736,7 @@ Importe: ${money(amount)}`
                 {(data?.barbers || []).map((row) => (
                   <tr key={row.barber?._id || "sin-barbero"}>
                     <td style={styles.td}>
-                      {row.barber?.name || "Sin barbero"}
+                      {row.barber?.name || "Mostrador"}
                     </td>
                     <td style={styles.td}>{row.appointments}</td>
                     <td style={styles.td}>
